@@ -1,0 +1,12 @@
+body { margin: 0px 15px 0px 15px }
+#results { list-style-type:none; display:block; clear:both;}
+#results li:nth-child(odd) div {
+	background-color: #ffffff;
+}
+.result div {
+	padding: 2px;
+}
+.result em {
+	font-weight: bold;
+	font-style: normal;
+}

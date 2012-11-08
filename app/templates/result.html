@@ -1,0 +1,29 @@
+<div class="well result">
+	<div class="title">
+		<% if (typeof name!=="undefined") { %> 
+		<h4><%= name.valuehl %></h4>
+		<% } %>
+		<% if (typeof compName_s!=="undefined") { %> 
+		<h4><%= compName_s.valuehl %></h4>
+		<% } %>
+	</div>
+	<div>Id: <%= id %></div>
+	<% if (typeof price_c!=="undefined") { %> 
+		<div>Price: <%=price_c.valuehl%></div>
+	<% } %>
+	<% if (typeof features!=="undefined") { %> 
+		<div>Features: <%=features.valuehl%></div>
+	<% } %>
+	<% if (typeof inStock!=="undefined") { %> 
+		<div>In Stock: <%=inStock.valuehl%></div>
+	<% } %>
+	<% if (typeof cat!=="undefined") { %> 
+		<div>Category: <%=cat.valuehl%></div>
+	<% } %>
+	<% if (typeof manu!=="undefined") { %> 
+		<div>Manufactory: <%=manu.valuehl%></div>
+	<% } %>
+	<% if (typeof address_s!=="undefined") { %> 
+		<div>Address: <%=address_s.valuehl%></div>
+	<% } %>
+</div>

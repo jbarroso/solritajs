@@ -1,0 +1,28 @@
+<%if (total>0 && totalPages>1) { %>
+<div class="pagination pagination-centered">
+	<ul>
+		<li <%=(firstPage!=currentPage) ? '':'class="disabled"' %>>
+			<a href="search?<%=currentParams%>&start=0" class="serverfirst">&lt;&lt;</a>
+		</li>
+
+		<li <%=(currentPage>firstPage) ? '':'class="disabled"'%>>
+			<a href="search?<%=currentParams%>&start=<%=(perPage*(currentPage-1))%>" 
+				class="serverprevious">&lt;</a>
+		</li>
+
+		<% for(p=beginIndex;p<endIndex;p++){ %>
+		<li <%=(currentPage === p)? 'class="disabled"': '' %>>
+			<a href="search?<%=currentParams%>&start=<%=(perPage*p)%>" class="page"><%=p+1%></a>
+		</li>
+		<% } %>	
+		<li <%=(currentPage+1<totalPages) ? '':'class="disabled"'%>>
+			<a href="search?<%=currentParams%>&start=<%=(perPage*(currentPage+1))%>" 
+				class="servernext">&gt;</a>
+		</li>
+		<li <%=(lastPage!=currentPage+1) ? '':'class="disabled"'%>>
+			<a href="search?<%=currentParams%>&start=<%=(perPage*(totalPages-1))%>" 
+				class="serverlast">&gt;&gt;</a>
+		</li>
+	</ul>
+</div>
+<%}%>

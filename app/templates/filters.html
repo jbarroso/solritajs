@@ -1,0 +1,18 @@
+<% if (facetQueries.length>0) { %>
+<div class="row-fluid">
+	<div class="span12">
+		<ul class="breadcrumb">
+			<% for(var i=0; i<facetQueries.length; i++) { %>
+			<li>
+				<a id="<%=facetQueries[i]%>" class="rfq" data-bypass href="#">
+					<%=unescape(facetQueries[i])%>
+				</a> 
+				<% if (facetQueries.length > (i+1)) { %>
+					<span class="divider">/</span>
+				<% } %>
+			</li>
+			<% } %>
+		</ul>
+	</div>
+</div>
+<% } %>

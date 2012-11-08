@@ -1,0 +1,31 @@
+<h3>Field Facet</h3>
+
+<div class="well side-bar-nav">
+
+	<!--Sidebar content-->
+	<ul class="nav nav-list">
+		<% for(var i=0;i<facetFields.length; i++){ 
+		var currentFacetField = facetFields[i];
+		var currentFacetFieldValues = [];
+		if (facetCounts.facet_fields !== undefined 
+			&& facetCounts.facet_fields[currentFacetField] !== undefined){
+			currentFacetFieldValues =  facetCounts.facet_fields[currentFacetField];
+			}
+		%>
+		<li class="nav-header">
+			<%= currentFacetField %>
+		</li>
+		<% for (var j=0;j<currentFacetFieldValues.length;j++) { %>
+		<li>
+		<a id="<%=(currentFacetField + ':' + j)%>" class="fq" 
+			href="search?<%=infoSolr.currentParams%>&fq=<%=(currentFacetField + ':' + '%22' + escape(currentFacetFieldValues[j]) + '%22') %>">
+				<span class="badge badge-info">
+					<%=currentFacetFieldValues[j+1]%>
+				</span>&nbsp;
+				<%=currentFacetFieldValues[j]%>
+			</a>
+		</li>
+		<% j++; } %>
+		<% } %>
+	</ul>
+</div>

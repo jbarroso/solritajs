@@ -1,0 +1,18 @@
+<% if(total>0) { %>
+<div style="float:left" class="span12">
+	<form class="form-inline" style="float:left">
+		<strong><%=total%></strong> results found in <%=qTime%> ms 
+		<span class="divider">/</span>
+		Page: <%=currentPage+1%> of <%=totalPages%> shown
+		<span class="divider">/</span>
+		<label for="num">Items per page:</label>
+		<div id="num" style="display: inline-block"/>
+		<label for="sort">Sort by:</label>
+		<div id="sort" style="display: inline-block"/>
+	</form>
+</div>
+<% } else { %>
+<div class="alert alert-warn">
+	No results found
+</div>
+<% } %>

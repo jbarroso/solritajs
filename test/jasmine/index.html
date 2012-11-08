@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Solrita.js Jasmine Test Suite</title>
+		<link rel="shortcut icon" type="image/png"
+		href="vendor/jasmine-1.1.0/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="vendor/jasmine-1.1.0/jasmine.css"
+		/>
+	</head>
+
+	<body>
+		<!-- Testing libs -->
+		<script type="text/javascript" src="vendor/jasmine-1.1.0/jasmine.js"></script>
+		<script type="text/javascript" src="vendor/jasmine-1.1.0/jasmine-html.js"></script>
+		<script type="text/javascript" src="vendor/jasmine-jquery-1.3.1.js"></script>
+		<script type="text/javascript" src="vendor/jasmine-loadTemplates.js"></script>
+		<script type="text/javascript" src="vendor/sinon.js"></script>
+		<!-- Application libs -->
+		<script src="../../assets/js/libs/jquery.js"></script>
+		<script src="../../assets/js/libs/lodash.js"></script>
+		<script src="../../assets/js/libs/backbone.js"></script>
+		<!-- Load application -->
+		<script data-main="../../app/config" src="../../assets/js/libs/require.js"></script>
+		<!-- Declare your spec files to be run here -->
+		<script>
+			// Ensure you point to where your spec folder is, base directory is app/,
+			// which is why ../test is necessary
+			require({ paths: { spec: "../test/jasmine/spec" } }, [
+
+			"spec/unit/SolrItemSpec.js",
+			"spec/unit/SolrPaginatedCollectionSpec.js",
+			"spec/unit/AppRouterSpec.js",
+			"spec/integration/SolrCollectionSpec.js",
+			"spec/integration/SolrPaginatedCollectionSpec.js"
+
+			], function() {
+				// Set up the jasmine reporters once each spec has been loaded
+				jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+				jasmine.getEnv().execute();
+			});
+		</script>
+	</body>
+
+</html>
