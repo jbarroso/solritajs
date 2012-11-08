@@ -24,5 +24,9 @@
     "nib": "0.8.2",
     "cssom": "0.2.5"
   },
-  "keywords": ["backbone", "paginator", "solr", "jasmine", "bbb", "boilerplate"]
+  "keywords": ["backbone", "paginator", "solr", "jasmine", "bbb", "boilerplate"],
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
 }
