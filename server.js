@@ -21,40 +21,11 @@ var options = {
 }
 
 var site = express.createServer();
+site.use(express.compress());
 console.log("Listening on http://" + options.host + ":" + options.port);
 
 // Allow users to override the root.
 var root = "/";
-
-// Process stylus stylesheets.
-site.get(/.styl$/, function (req, res) {
-  var url = req.url.split("assets/css/")[1];
-  var file = path.join("assets/css", url);
-
-  fs.readFile(file, function (err, contents) {
-    grunt.helper("stylus", contents.toString(), {
-      paths: ["assets/css/", require("nib").path]
-    }, function (css) {
-      res.header("Content-type", "text/css");
-      res.send(css);
-    });
-  });
-});
-
-// Process LESS stylesheets.
-site.get(/.less$/, function (req, res) {
-  var url = req.url.split("assets/css/")[1];
-  var file = path.join("assets/css", url);
-
-  fs.readFile(file, function (err, contents) {
-    grunt.helper("less", contents.toString(), {
-      paths: ["assets/css/"]
-    }, function (css) {
-      res.header("Content-type", "text/css");
-      res.send(css);
-    });
-  });
-});
 
 // Map static folders.
 Object.keys(options.folders).sort().reverse().forEach(function (key) {

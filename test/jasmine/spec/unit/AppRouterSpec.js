@@ -83,7 +83,7 @@ define(['jquery', 'lodash', 'backbone', 'router', 'modules/solrita', 'app'], fun
 			expect(this.paginatedCollection.currentPage).toEqual(0);
 		});
 		it("should search with currentPage when start is defined", function () {
-			this.fakeSearchNavigation('&start=10');
+			this.fakeSearchNavigation('&start='+app.defaultPerPage);
 			expect(this.paginatedCollection.currentPage).toEqual(1);
 		});
 		it("should search with one fq param", function () {

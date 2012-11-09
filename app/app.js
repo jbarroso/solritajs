@@ -22,7 +22,7 @@ define([
       solrURL: "http://solritajs-server.herokuapp.com/solr/select",
 			defaultQuery: "*:*",
 			defaultFacetFieldsArray: ["cat", "manu_exact"],
-			defaultPerPage: 10,
+			defaultPerPage: 5,
 			defaultSortField: "price desc",
 			paginationSize: 3,
 			perPageArray: [3, 5, 10, 15, 20, 50, 100],

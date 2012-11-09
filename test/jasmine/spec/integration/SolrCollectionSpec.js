@@ -11,7 +11,7 @@ define([
 				var SolrModel = Backbone.Model.extend();
 				var SolrCollection = Backbone.Collection.extend({
 					model: SolrModel,
-					url: 'http://localhost:8983/solr/select?wt=json&json.wrf=?',
+					url: 'http://solritajs-server.herokuapp.com/solr/select?wt=json&json.wrf=?',
 					query: '*:*',
 					start: 0,
 					rows: 10,

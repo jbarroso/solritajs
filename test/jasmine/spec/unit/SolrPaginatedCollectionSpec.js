@@ -31,7 +31,8 @@ define(['modules/solrita', 'app'], function (Solrita, app) {
 				});
 				it("should has endIndex in infoSolr", function () {
 					var infoSolr = this.paginatedCollection.infoSolr;
-					expect(infoSolr.endIndex).toEqual(app.paginationSize);
+				  var endIndexExpected = Math.min((app.paginationSize * 2), infoSolr.totalPages);
+					expect(infoSolr.endIndex).toEqual(endIndexExpected);
 				});
 				it("should has facetCounts", function () {
 					expect(this.paginatedCollection.facetCounts).toBeDefined();
