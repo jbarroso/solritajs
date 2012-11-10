@@ -439,15 +439,13 @@ this['JST']['app/templates/result.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="well result">\n\t<div class="title">\n\t\t';
- if (typeof name!=="undefined") { 
-;__p+=' \n\t\t<h4>'+
-( name.valuehl )+
-'</h4>\n\t\t';
- } 
-;__p+='\n\t\t';
  if (typeof compName_s!=="undefined") { 
 ;__p+=' \n\t\t<h4>'+
 ( compName_s.valuehl )+
+'</h4>\n\t\t';
+ } else {
+;__p+='\n\t\t<h4>'+
+( name.valuehl )+
 '</h4>\n\t\t';
  } 
 ;__p+='\n\t</div>\n\t<div>Id: '+

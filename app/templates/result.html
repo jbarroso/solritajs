@@ -1,10 +1,9 @@
 <div class="well result">
 	<div class="title">
-		<% if (typeof name!=="undefined") { %> 
-		<h4><%= name.valuehl %></h4>
-		<% } %>
 		<% if (typeof compName_s!=="undefined") { %> 
 		<h4><%= compName_s.valuehl %></h4>
+		<% } else {%>
+		<h4><%= name.valuehl %></h4>
 		<% } %>
 	</div>
 	<div>Id: <%= id %></div>
