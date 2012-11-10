@@ -22,7 +22,10 @@ require.config({
 			exports: "Backbone"
 		},
 		"plugins/backbone.layoutmanager": ["backbone"],
-		"plugins/backbone.paginator": ["backbone"]
+		"plugins/backbone.paginator": ["backbone"],
+
+		// Twitter Bootstrap depends on jQuery.
+		"vendor/bootstrap/js/bootstrap": ["jquery"]
 	}
 
 });

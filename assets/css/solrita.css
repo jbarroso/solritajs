@@ -1,12 +1,30 @@
-body { margin: 0px 15px 0px 15px }
-#results { list-style-type:none; display:block; clear:both;}
-#results li:nth-child(odd) div {
-	background-color: #ffffff;
+body {
+  margin: 0px 15px 0px 15px
+}
+#results {
+  list-style-type:none;
+  display:block;
+  clear:both;
+}
+#results>div div:nth-child(odd) .result {
+  background-color: #ffffff;
+}
+#sort select {
+	width: 105px;
+}
+#num select {
+	width: 55px;
 }
 .result div {
-	padding: 2px;
+  padding: 2px;
 }
 .result em {
-	font-weight: bold;
-	font-style: normal;
+  font-weight: bold;
+  font-style: normal;
+}
+@media(max-width: 1024px) {
+  body {
+    padding: 0;
+		margin: 0px 5px 0px 5px;
+  }
 }

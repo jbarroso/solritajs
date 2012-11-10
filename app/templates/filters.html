@@ -2,14 +2,15 @@
 <div class="row-fluid">
 	<div class="span12">
 		<ul class="breadcrumb">
+			<li>
+				<span>Filters </span>
+			</li>
 			<% for(var i=0; i<facetQueries.length; i++) { %>
 			<li>
+				<span class="divider">/</span>
 				<a id="<%=facetQueries[i]%>" class="rfq" data-bypass href="#">
 					<%=unescape(facetQueries[i])%>
 				</a> 
-				<% if (facetQueries.length > (i+1)) { %>
-					<span class="divider">/</span>
-				<% } %>
 			</li>
 			<% } %>
 		</ul>

@@ -1,9 +1,9 @@
-<h3>Field Facet</h3>
-
 <div class="well side-bar-nav">
-
 	<!--Sidebar content-->
 	<ul class="nav nav-list">
+
+		<li><h5>Field Facet</h5></li>
+
 		<% for(var i=0;i<facetFields.length; i++){ 
 		var currentFacetField = facetFields[i];
 		var currentFacetFieldValues = [];
@@ -12,6 +12,9 @@
 			currentFacetFieldValues =  facetCounts.facet_fields[currentFacetField];
 			}
 		%>
+		<% if (i>0) {%>
+			<li class="divider"/>
+		<% } %>
 		<li class="nav-header">
 			<%= currentFacetField %>
 		</li>

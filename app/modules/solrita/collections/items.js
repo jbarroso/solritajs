@@ -122,6 +122,10 @@ define([
 				if (info.firstPage === undefined) {
 					info.firstPage = 0;
 				}
+				info.searchBase = "search?"+ info.currentParams;
+				info.isFirstPage = (info.firstPage===info.currentPage);
+				info.isLastPage = (info.currentPage+1===info.totalPages);
+
 				return info;
 			},
 

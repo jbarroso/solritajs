@@ -8,7 +8,7 @@ define([
 
 			template: 'result',
 
-			tagName: 'li',
+			tagName: 'div',
 
 			data: function () {
 				return this.model.toJSON();

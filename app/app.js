@@ -5,7 +5,8 @@ define([
 	"backbone",
 
 	// Plugins.
-	"plugins/backbone.layoutmanager"
+	"plugins/backbone.layoutmanager",
+	"vendor/bootstrap/js/bootstrap" 
 
 	], function ($, _, Backbone) {
 
@@ -24,9 +25,9 @@ define([
 			defaultFacetFieldsArray: ["cat", "manu_exact"],
 			defaultPerPage: 5,
 			defaultSortField: "price desc",
-			paginationSize: 3,
-			perPageArray: [3, 5, 10, 15, 20, 50, 100],
-			sortFieldArray: ["id asc", "id desc", "name asc", "name desc", "price asc", "price desc"]
+			paginationSize: 2,
+			perPageArray: [3, 5, 10, 15, 20, 50],
+			sortFieldArray: ["price asc", "price desc"]
 		};
 
 		// Localize or create a new JavaScript Template object.
