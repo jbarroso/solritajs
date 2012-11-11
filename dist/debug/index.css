@@ -5862,6 +5862,11 @@ body {
   font-weight: bold;
   font-style: normal;
 }
+.spinner {
+	text-align: center;
+	margin: 0px auto;
+	padding: 0px 0px 100px 0px;
+}
 @media(max-width: 1024px) {
   body {
     padding: 0;

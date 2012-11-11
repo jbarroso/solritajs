@@ -409,14 +409,16 @@ this['JST']['app/templates/results-header.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='';
- if(total>0) { 
+ if (total > 0) { 
 ;__p+='\n  <div class="navbar span12">\n    <div class="navbar-inner">\n      <div class="container">\n        <ul class="nav pull-left">\n          <li>\n            <p class="navbar-text"><span><strong>'+
 (total)+
 ' </strong>results found in '+
 (qTime)+
 'ms</span></p>\n          </li>\n        </ul>\n\t\t\t\t<a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t</a>\n        <ul class="nav pull-right">\n          <li>\n            <ul class="pager navbar-text" style="margin:0">\n              <li class="'+
 ((isFirstPage) ? ' disabled':'' )+
-'">\n                <a href="'+
+'">\n                <a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1)))+
 '"><</a>\n              </li>\n              <li>\n                <strong>Page '+
 (currentPage+1)+
@@ -424,11 +426,15 @@ __p+='';
 (totalPages)+
 '\n              </li>\n              <li class="'+
 ((isLastPage) ? ' disabled':'' )+
-'">\n                <a href="'+
+'">\n\t\t\t\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1)))+
-'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n\t\t\t\t<div class="nav-collapse collapse pull-right">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n\t\t\t\t\t\t\t\t<div class="pull-left">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="num">Items per page:</label>\n\t\t\t\t\t\t\t\t\t<div id="num" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class="pull-left" style="margin-left:5px">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="sort">Sort by:</label>\n\t\t\t\t\t\t\t\t\t<div id="sort" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n  ';
- } else { 
-;__p+='\n    <div class="alert alert-warn" class="span12">No results found</div>\n    ';
+'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n\t\t\t\t<div class="nav-collapse collapse pull-right">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n\t\t\t\t\t\t\t\t<div class="pull-left">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="num">Items per page:</label>\n\t\t\t\t\t\t\t\t\t<div id="num" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class="pull-left" style="margin-left:5px">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="sort">Sort by:</label>\n\t\t\t\t\t\t\t\t\t<div id="sort" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n';
+ } 
+;__p+='\n';
+ if (noResultsFound) { 
+;__p+='\n\t<div class="alert alert-warn" class="span12">No results found</div>\n';
  } 
 ;__p+='\n';
 }
@@ -555,11 +561,15 @@ __p+='';
 if (total>0 && totalPages>1) { 
 ;__p+='\n<div class="navbar">\n\t<div class="navbar-inner">\n\t\t<div class="pagination pagination-centered">\n\t\t\t<ul>\n\t\t\t\t<li '+
 ((isFirstPage) ? 'class="disabled"':'' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start=0')+
 '" class="serverfirst">&lt;&lt;</a>\n\t\t\t\t</li>\n\n\t\t\t\t<li '+
 ((isFirstPage) ? 'class="disabled"':'' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1)))+
 '" \n\t\t\t\t\tclass="serverprevious">&lt;</a>\n\t\t\t\t</li>\n\n\t\t\t\t';
  for(p=beginIndex;p<endIndex;p++){ 
@@ -567,7 +577,9 @@ if (total>0 && totalPages>1) {
  var isCurrentPage = (currentPage === p);
 ;__p+='\n\t\t\t\t<li '+
 ((isCurrentPage)? 'class="active"': '' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isCurrentPage) ? 'data-bypass':'')+
+'  \n\t\t\t\t\thref="'+
 ((isCurrentPage) ? '#': searchBase + '&start=' + (perPage*p))+
 '" class="page">'+
 (p+1)+
@@ -575,11 +587,15 @@ if (total>0 && totalPages>1) {
  } 
 ;__p+='\t\n\n\t\t\t\t<li '+
 ((isLastPage) ? 'class="disabled"': '')+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1)))+
 '" \n\t\t\t\t\tclass="servernext">&gt;</a>\n\t\t\t\t</li>\n\t\t\t\t<li '+
 ((isLastPage) ? 'class="disabled"': '')+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1)))+
 '" \n\t\t\t\t\tclass="serverlast">&gt;&gt;</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</div>\n';
 }
@@ -18434,88 +18450,97 @@ define("plugins/backbone.layoutmanager", function(){});
 define("vendor/bootstrap/js/bootstrap", function(){});
 
 define('app',[
-	// Libraries.
-	"jquery",
-	"lodash",
-	"backbone",
+  // Libraries.
+  "jquery",
+  "lodash",
+  "backbone",
 
-	// Plugins.
-	"plugins/backbone.layoutmanager",
-	"vendor/bootstrap/js/bootstrap" 
+  // Plugins.
+  "plugins/backbone.layoutmanager",
+  "vendor/bootstrap/js/bootstrap"
 
-	], function ($, _, Backbone) {
+  ], function ($, _, Backbone) {
 
-		// set ajax params without brackets []
-		$.ajaxSettings.traditional = true;
+    // Patch collection fetching to emit a `fetch` event.
+    Backbone.Collection.prototype.fetch = function () {
+      var fetch = Backbone.Collection.prototype.fetch;
+      return function () {
+        this.trigger("fetch");
+        return fetch.apply(this, arguments);
+      };
+    }();
 
-		// Provide a global location to place configuration settings and module
-		// creation.
-		var app = {
-			// The root path to run the application.
-			root: "/",
-			pushState: true,
-			//solrURL: "http://localhost:8983/solr/select",
+    // set ajax params without brackets []
+    $.ajaxSettings.traditional = true;
+
+    // Provide a global location to place configuration settings and module
+    // creation.
+    var app = {
+      // The root path to run the application.
+      root: "/",
+      pushState: true,
+      //solrURL: "http://localhost:8983/solr/select",
       solrURL: "http://solritajs-server.herokuapp.com/solr/select",
-			defaultQuery: "*:*",
-			defaultFacetFieldsArray: ["cat", "manu_exact"],
-			defaultPerPage: 5,
-			defaultSortField: "price desc",
-			paginationSize: 2,
-			perPageArray: [3, 5, 10, 15, 20, 50],
-			sortFieldArray: ["price asc", "price desc"]
-		};
+      defaultQuery: "*:*",
+      defaultFacetFieldsArray: ["cat", "manu_exact"],
+      defaultPerPage: 5,
+      defaultSortField: "price desc",
+      paginationSize: 2,
+      perPageArray: [3, 5, 10, 15, 20, 50],
+      sortFieldArray: ["price asc", "price desc"]
+    };
 
-		// Localize or create a new JavaScript Template object.
-		var JST = window.JST = window.JST || {};
+    // Localize or create a new JavaScript Template object.
+    var JST = window.JST = window.JST || {};
 
-		// Configure LayoutManager with Backbone Boilerplate defaults.
-		Backbone.LayoutManager.configure({
-			// Allow LayoutManager to augment Backbone.View.prototype.
-			manage: true,
+    // Configure LayoutManager with Backbone Boilerplate defaults.
+    Backbone.LayoutManager.configure({
+      // Allow LayoutManager to augment Backbone.View.prototype.
+      manage: true,
 
-			prefix: "app/templates/",
+      prefix: "app/templates/",
 
-			fetch: function (path) {
-				// Concatenate the file extension.
-				path = path + ".html";
+      fetch: function (path) {
+        // Concatenate the file extension.
+        path = path + ".html";
 
-				// If cached, use the compiled template.
-				if (JST[path]) {
-					return JST[path];
-				}
+        // If cached, use the compiled template.
+        if (JST[path]) {
+          return JST[path];
+        }
 
-				// Put fetch into `async-mode`.
-				var done = this.async();
+        // Put fetch into `async-mode`.
+        var done = this.async();
 
-				// Seek out the template asynchronously.
-				$.get(app.root + path, function (contents) {
-					done(JST[path] = _.template(contents));
-				});
-			}
-		});
+        // Seek out the template asynchronously.
+        $.get(app.root + path, function (contents) {
+          done(JST[path] = _.template(contents));
+        });
+      }
+    });
 
-		// Mix Backbone.Events, modules, and layout management into the app object.
-		return _.extend(app, {
-			// Create a custom object with a nested Views object.
-			module: function (additionalProps) {
-				return _.extend({
-					Views: {}
-				}, additionalProps);
-			},
+    // Mix Backbone.Events, modules, and layout management into the app object.
+    return _.extend(app, {
+      // Create a custom object with a nested Views object.
+      module: function (additionalProps) {
+        return _.extend({
+          Views: {}
+        }, additionalProps);
+      },
 
-			// Helper for using layouts.
-			useLayout: function (options) {
-				// Create a new Layout with options.
-				var layout = new Backbone.Layout(_.extend({
-					el: "body"
-				}, options));
+      // Helper for using layouts.
+      useLayout: function (options) {
+        // Create a new Layout with options.
+        var layout = new Backbone.Layout(_.extend({
+          el: "body"
+        }, options));
 
-				// Cache the refererence.
-				return this.layout = layout;
-			}
-		}, Backbone.Events);
+        // Cache the refererence.
+        return this.layout = layout;
+      }
+    }, Backbone.Events);
 
-	});
+  });
 
 define('modules/solrita/models/item',[
 	'backbone'
@@ -19452,7 +19477,8 @@ define('modules/solrita/collections/items',[
 
 			infoSolr: {
 				total: 0,
-				printQuery: ''
+				printQuery: '',
+        noResultsFound: false
 			},
 
 			parse: function (response) {
@@ -19463,6 +19489,7 @@ define('modules/solrita/collections/items',[
 				this.facetCounts = response.facet_counts;
 				this.infoSolr = this.getInfoSolr();
 				var docs = this._getDocsWithValueAndValuehl(response.response.docs, response.highlighting);
+        this.trigger("parse");
 				return docs;
 			},
 
@@ -19502,6 +19529,7 @@ define('modules/solrita/collections/items',[
 				info.searchBase = "search?"+ info.currentParams;
 				info.isFirstPage = (info.firstPage===info.currentPage);
 				info.isLastPage = (info.currentPage+1===info.totalPages);
+        info.noResultsFound = (this.total===0);
 
 				return info;
 			},
@@ -19607,17 +19635,346 @@ define('modules/solrita/views/result',[
 		return ResultView;
 	});
 
+//fgnass.github.com/spin.js#v1.2.7
+!function(window, document, undefined) {
+
+  /**
+   * Copyright (c) 2011 Felix Gnass [fgnass at neteye dot de]
+   * Licensed under the MIT license
+   */
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }()
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines*100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-'+prefix+'-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   **/
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    if(s[prop] !== undefined) return prop
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  var Spinner = function Spinner(o) {
+    if (!this.spin) return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+    spin: function(target) {
+      this.stop()
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('aria-role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var s=o.lines; s; s--) {
+            var alpha = Math.max(1-(i+s*astep)%f * ostep, o.opacity)
+            self.opacity(el, o.lines-s, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    lines: function(el, o) {
+      var i = 0
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, i, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+
+        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+  /////////////////////////////////////////////////////////////////////////
+  // VML rendering for IE
+  /////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Check and init VML support
+   */
+  ;(function() {
+
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    var s = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+    if (!vendor(s, 'transform') && s.adj) {
+
+      // VML support detected. Insert CSS rule ...
+      sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+      Spinner.prototype.lines = function(el, o) {
+        var r = o.length+o.width
+          , s = 2*r
+
+        function grp() {
+          return css(
+            vml('group', {
+              coordsize: s + ' ' + s,
+              coordorigin: -r + ' ' + -r
+            }),
+            { width: s, height: s }
+          )
+        }
+
+        var margin = -(o.width+o.length)*2 + 'px'
+          , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+          , i
+
+        function seg(i, dx, filter) {
+          ins(g,
+            ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+              ins(css(vml('roundrect', {arcsize: o.corners}), {
+                  width: r,
+                  height: o.width,
+                  left: o.radius,
+                  top: -o.width>>1,
+                  filter: filter
+                }),
+                vml('fill', {color: o.color, opacity: o.opacity}),
+                vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+              )
+            )
+          )
+        }
+
+        if (o.shadow)
+          for (i = 1; i <= o.lines; i++)
+            seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+        for (i = 1; i <= o.lines; i++) seg(i)
+        return ins(el, g)
+      }
+
+      Spinner.prototype.opacity = function(el, i, val, o) {
+        var c = el.firstChild
+        o = o.shadow && o.lines || 0
+        if (c && i+o < c.childNodes.length) {
+          c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+          if (c) c.opacity = val
+        }
+      }
+    }
+    else
+      useCssAnimations = vendor(s, 'animation')
+  })()
+
+  if (typeof define == 'function' && define.amd)
+    define('plugins/spin',[],function() { return Spinner })
+  else
+    window.Spinner = Spinner
+
+}(window, document);
+
 define('modules/solrita/views/results',[
 	'jquery',
 	'lodash',
 	'backbone',
-	'modules/solrita/views/result'
-	], function ($, _, Backbone, ResultView) {
+	'modules/solrita/views/result',
+	'plugins/spin'
+	], function ($, _, Backbone, ResultView, Spinner) {
 
 		var ResultsView = Backbone.View.extend({
 
+			spinner: {},
+
 			initialize: function () {
 				this.collection.on('reset', this.render, this);
+				this.collection.on('fetch', this.start, this);
+				this.collection.on('parse', this.stop, this);
+				this.spinner = new Spinner({
+					color: "#777"
+				});
 			},
 
 			beforeRender: function () {
@@ -19627,6 +19984,14 @@ define('modules/solrita/views/results',[
 						model: item
 					}));
 				});
+			},
+
+			start: function () {
+				this.spinner.spin(this.el);
+			},
+
+			stop: function () {
+				this.spinner.stop();
 			}
 
 		});
@@ -19931,6 +20296,7 @@ define('router',[
 
 			initialize: function (options) {
 				this.collection = options.collection;
+        this.setLayout();
 			},
 
 			routes: {
@@ -19939,17 +20305,21 @@ define('router',[
 			},
 
 			defaultAction: function (actions) {
+        this.reset();
 				this.collection.query = app.defaultQuery;
 				this.collection.facetQueries = [];
 				var self = this;
-				this.collection.search({
+				/*this.collection.search({
 					success: function () {
 						self.setLayout();
 					}
-				});
+				});*/
+        this.collection.search();
+
 			},
 
 			searchAction: function (params) {
+        this.reset();
 				params = this._getParamsFromArguments(arguments);
 				this.collection.query = this._getQueryFromParams(params);
 				this.collection.perPage = this._getNumFromParams(params);
@@ -19961,11 +20331,13 @@ define('router',[
 				var facetQueries = this._getFacetQueriesFromParams(params);
 				this.collection.facetQueries = facetQueries;
 				var self = this;
-				this.collection.search({
+				/*this.collection.search({
 					success: function () {
 						self.setLayout();
 					}
-				});
+				});*/
+
+        this.collection.search();
 			},
 
 			setLayout: function () {
@@ -20057,7 +20429,13 @@ define('router',[
 					}
 				});
 				return result;
-			}
+			},
+
+      reset: function () {
+        if (this.collection.length) {
+          this.collection.reset();
+        }
+      }
 
 		});
 
@@ -20108,6 +20486,8 @@ require([
 				// trigger the correct events. The Router's internal `navigate` method
 				// calls this anyways.  The fragment is sliced from the root.
 				Backbone.history.navigate(href.attr, true);
+        // jbarroso: Go to the top!
+        $("body").scrollTop(0);
 			}
 		});
 
@@ -20142,7 +20522,9 @@ require.config({
 		"plugins/backbone.paginator": ["backbone"],
 
 		// Twitter Bootstrap depends on jQuery.
-		"vendor/bootstrap/js/bootstrap": ["jquery"]
+		"vendor/bootstrap/js/bootstrap": ["jquery"],
+		// spinjs: http://fgnass.github.com/spin.js/
+		"plugins/spin":[]
 	}
 
 });

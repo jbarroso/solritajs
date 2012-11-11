@@ -75,7 +75,8 @@ define([
 
 			infoSolr: {
 				total: 0,
-				printQuery: ''
+				printQuery: '',
+        noResultsFound: false
 			},
 
 			parse: function (response) {
@@ -86,6 +87,7 @@ define([
 				this.facetCounts = response.facet_counts;
 				this.infoSolr = this.getInfoSolr();
 				var docs = this._getDocsWithValueAndValuehl(response.response.docs, response.highlighting);
+        this.trigger("parse");
 				return docs;
 			},
 
@@ -125,6 +127,7 @@ define([
 				info.searchBase = "search?"+ info.currentParams;
 				info.isFirstPage = (info.firstPage===info.currentPage);
 				info.isLastPage = (info.currentPage+1===info.totalPages);
+        info.noResultsFound = (this.total===0);
 
 				return info;
 			},

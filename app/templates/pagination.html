@@ -4,27 +4,32 @@
 		<div class="pagination pagination-centered">
 			<ul>
 				<li <%=(isFirstPage) ? 'class="disabled"':'' %>>
-				<a href="<%=(isFirstPage) ? '#' : searchBase + '&start=0'%>" class="serverfirst">&lt;&lt;</a>
+				<a <%=(isFirstPage) ? 'data-bypass':''%> 
+					href="<%=(isFirstPage) ? '#' : searchBase + '&start=0'%>" class="serverfirst">&lt;&lt;</a>
 				</li>
 
 				<li <%=(isFirstPage) ? 'class="disabled"':'' %>>
-				<a href="<%=(isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1))%>" 
+				<a <%=(isFirstPage) ? 'data-bypass':''%> 
+					href="<%=(isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1))%>" 
 					class="serverprevious">&lt;</a>
 				</li>
 
 				<% for(p=beginIndex;p<endIndex;p++){ %>
 				<% var isCurrentPage = (currentPage === p);%>
 				<li <%=(isCurrentPage)? 'class="active"': '' %>>
-				<a href="<%=(isCurrentPage) ? '#': searchBase + '&start=' + (perPage*p)%>" class="page"><%=p+1%></a>
+				<a <%=(isCurrentPage) ? 'data-bypass':''%>  
+					href="<%=(isCurrentPage) ? '#': searchBase + '&start=' + (perPage*p)%>" class="page"><%=p+1%></a>
 				</li>
 				<% } %>	
 
 				<li <%=(isLastPage) ? 'class="disabled"': ''%>>
-				<a href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1))%>" 
+				<a <%=(isLastPage) ? 'data-bypass':''%> 
+					href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1))%>" 
 					class="servernext">&gt;</a>
 				</li>
 				<li <%=(isLastPage) ? 'class="disabled"': ''%>>
-				<a href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1))%>" 
+				<a <%=(isLastPage) ? 'data-bypass':''%> 
+					href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1))%>" 
 					class="serverlast">&gt;&gt;</a>
 				</li>
 			</ul>

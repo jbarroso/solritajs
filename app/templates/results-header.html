@@ -1,4 +1,4 @@
-<% if(total>0) { %>
+<% if (total > 0) { %>
   <div class="navbar span12">
     <div class="navbar-inner">
       <div class="container">
@@ -16,13 +16,15 @@
           <li>
             <ul class="pager navbar-text" style="margin:0">
               <li class="<%=(isFirstPage) ? ' disabled':'' %>">
-                <a href="<%=(isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1))%>"><</a>
+                <a <%=(isFirstPage) ? 'data-bypass':''%> 
+									href="<%=(isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1))%>"><</a>
               </li>
               <li>
                 <strong>Page <%=currentPage+1%> </strong>of <%=totalPages%>
               </li>
               <li class="<%=(isLastPage) ? ' disabled':'' %>">
-                <a href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1))%>">></a>
+							<a <%=(isLastPage) ? 'data-bypass':''%> 
+								href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1))%>">></a>
               </li>
             </ul>
           </li>
@@ -47,6 +49,7 @@
       </div>
     </div>
   </div>
-  <% } else { %>
-    <div class="alert alert-warn" class="span12">No results found</div>
-    <% } %>
+<% } %>
+<% if (noResultsFound) { %>
+	<div class="alert alert-warn" class="span12">No results found</div>
+<% } %>

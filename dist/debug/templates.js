@@ -24,14 +24,16 @@ this['JST']['app/templates/results-header.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='';
- if(total>0) { 
+ if (total > 0) { 
 ;__p+='\n  <div class="navbar span12">\n    <div class="navbar-inner">\n      <div class="container">\n        <ul class="nav pull-left">\n          <li>\n            <p class="navbar-text"><span><strong>'+
 (total)+
 ' </strong>results found in '+
 (qTime)+
 'ms</span></p>\n          </li>\n        </ul>\n\t\t\t\t<a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t</a>\n        <ul class="nav pull-right">\n          <li>\n            <ul class="pager navbar-text" style="margin:0">\n              <li class="'+
 ((isFirstPage) ? ' disabled':'' )+
-'">\n                <a href="'+
+'">\n                <a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1)))+
 '"><</a>\n              </li>\n              <li>\n                <strong>Page '+
 (currentPage+1)+
@@ -39,11 +41,15 @@ __p+='';
 (totalPages)+
 '\n              </li>\n              <li class="'+
 ((isLastPage) ? ' disabled':'' )+
-'">\n                <a href="'+
+'">\n\t\t\t\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1)))+
-'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n\t\t\t\t<div class="nav-collapse collapse pull-right">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n\t\t\t\t\t\t\t\t<div class="pull-left">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="num">Items per page:</label>\n\t\t\t\t\t\t\t\t\t<div id="num" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class="pull-left" style="margin-left:5px">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="sort">Sort by:</label>\n\t\t\t\t\t\t\t\t\t<div id="sort" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n  ';
- } else { 
-;__p+='\n    <div class="alert alert-warn" class="span12">No results found</div>\n    ';
+'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n\t\t\t\t<div class="nav-collapse collapse pull-right">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n\t\t\t\t\t\t\t\t<div class="pull-left">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="num">Items per page:</label>\n\t\t\t\t\t\t\t\t\t<div id="num" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class="pull-left" style="margin-left:5px">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="sort">Sort by:</label>\n\t\t\t\t\t\t\t\t\t<div id="sort" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n';
+ } 
+;__p+='\n';
+ if (noResultsFound) { 
+;__p+='\n\t<div class="alert alert-warn" class="span12">No results found</div>\n';
  } 
 ;__p+='\n';
 }
@@ -170,11 +176,15 @@ __p+='';
 if (total>0 && totalPages>1) { 
 ;__p+='\n<div class="navbar">\n\t<div class="navbar-inner">\n\t\t<div class="pagination pagination-centered">\n\t\t\t<ul>\n\t\t\t\t<li '+
 ((isFirstPage) ? 'class="disabled"':'' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start=0')+
 '" class="serverfirst">&lt;&lt;</a>\n\t\t\t\t</li>\n\n\t\t\t\t<li '+
 ((isFirstPage) ? 'class="disabled"':'' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isFirstPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1)))+
 '" \n\t\t\t\t\tclass="serverprevious">&lt;</a>\n\t\t\t\t</li>\n\n\t\t\t\t';
  for(p=beginIndex;p<endIndex;p++){ 
@@ -182,7 +192,9 @@ if (total>0 && totalPages>1) {
  var isCurrentPage = (currentPage === p);
 ;__p+='\n\t\t\t\t<li '+
 ((isCurrentPage)? 'class="active"': '' )+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isCurrentPage) ? 'data-bypass':'')+
+'  \n\t\t\t\t\thref="'+
 ((isCurrentPage) ? '#': searchBase + '&start=' + (perPage*p))+
 '" class="page">'+
 (p+1)+
@@ -190,11 +202,15 @@ if (total>0 && totalPages>1) {
  } 
 ;__p+='\t\n\n\t\t\t\t<li '+
 ((isLastPage) ? 'class="disabled"': '')+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1)))+
 '" \n\t\t\t\t\tclass="servernext">&gt;</a>\n\t\t\t\t</li>\n\t\t\t\t<li '+
 ((isLastPage) ? 'class="disabled"': '')+
-'>\n\t\t\t\t<a href="'+
+'>\n\t\t\t\t<a '+
+((isLastPage) ? 'data-bypass':'')+
+' \n\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1)))+
 '" \n\t\t\t\t\tclass="serverlast">&gt;&gt;</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</div>\n';
 }

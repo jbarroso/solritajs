@@ -25,7 +25,9 @@ require.config({
 		"plugins/backbone.paginator": ["backbone"],
 
 		// Twitter Bootstrap depends on jQuery.
-		"vendor/bootstrap/js/bootstrap": ["jquery"]
+		"vendor/bootstrap/js/bootstrap": ["jquery"],
+		// spinjs: http://fgnass.github.com/spin.js/
+		"plugins/spin":[]
 	}
 
 });
