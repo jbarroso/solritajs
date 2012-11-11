@@ -7,6 +7,11 @@
             <p class="navbar-text"><span><strong><%=total%> </strong>results found in <%=qTime%>ms</span></p>
           </li>
         </ul>
+				<a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+				</a>
         <ul class="nav pull-right">
           <li>
             <ul class="pager navbar-text" style="margin:0">
@@ -22,22 +27,18 @@
             </ul>
           </li>
         </ul>
-        <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-        <div class="nav-collapse collapse">
+				<div class="nav-collapse collapse pull-right">
           <form class="form-inline" style="margin:0px">
             <ul class="nav pull-right">
               <li>
-                <label class="navbar-text" for="num">Items per page:</label>
-                <div id="num" style="display: inline-block" />
-              </li>
-              <li class="divider-vertical" />
-              <li>
-                <label class="navbar-text" for="sort">Sort by:</label>
-                <div id="sort" style="display: inline-block" />
+								<div class="pull-left">
+									<label class="navbar-text" for="num">Items per page:</label>
+									<div id="num" style="display: inline-block" />
+								</div>
+								<div class="pull-left" style="margin-left:5px">
+									<label class="navbar-text" for="sort">Sort by:</label>
+									<div id="sort" style="display: inline-block" />
+								</div>
               </li>
               <li class="divider-vertical" />
             </ul>
