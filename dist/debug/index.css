@@ -5841,6 +5841,10 @@ button.close {
 body {
   margin: 0px 15px 0px 15px
 }
+#subtitle {
+	margin-top:0px;
+	white-space: nowrap;
+}
 #results {
   list-style-type:none;
   display:block;
@@ -5873,6 +5877,13 @@ body {
 		margin: 0px 5px 0px 5px;
   }
 }
+@media(max-width: 500px) {
+	#subtitle {
+		display: none;
+	}
+}
+
+
 [class^="icon-"] {
   background-image: url("/assets/vendor/bootstrap/img/glyphicons-halflings.png");
 }
