@@ -29,7 +29,7 @@ __p+='';
 (total)+
 ' </strong>results found in '+
 (qTime)+
-'ms</span></p>\n          </li>\n        </ul>\n        <ul class="nav pull-right">\n          <li>\n            <ul class="pager navbar-text" style="margin:0">\n              <li class="'+
+'ms</span></p>\n          </li>\n        </ul>\n\t\t\t\t<a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t</a>\n        <ul class="nav pull-right">\n          <li>\n            <ul class="pager navbar-text" style="margin:0">\n              <li class="'+
 ((isFirstPage) ? ' disabled':'' )+
 '">\n                <a href="'+
 ((isFirstPage) ? '#' : searchBase + '&start='+(perPage*(currentPage-1)))+
@@ -41,7 +41,7 @@ __p+='';
 ((isLastPage) ? ' disabled':'' )+
 '">\n                <a href="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(currentPage+1)))+
-'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n        <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t\t<span class="icon-bar"></span>\n\t\t\t\t\t</a>\n        <div class="nav-collapse collapse">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n                <label class="navbar-text" for="num">Items per page:</label>\n                <div id="num" style="display: inline-block" />\n              </li>\n              <li class="divider-vertical" />\n              <li>\n                <label class="navbar-text" for="sort">Sort by:</label>\n                <div id="sort" style="display: inline-block" />\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n  ';
+'">></a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n\t\t\t\t<div class="nav-collapse collapse pull-right">\n          <form class="form-inline" style="margin:0px">\n            <ul class="nav pull-right">\n              <li>\n\t\t\t\t\t\t\t\t<div class="pull-left">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="num">Items per page:</label>\n\t\t\t\t\t\t\t\t\t<div id="num" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class="pull-left" style="margin-left:5px">\n\t\t\t\t\t\t\t\t\t<label class="navbar-text" for="sort">Sort by:</label>\n\t\t\t\t\t\t\t\t\t<div id="sort" style="display: inline-block" />\n\t\t\t\t\t\t\t\t</div>\n              </li>\n              <li class="divider-vertical" />\n            </ul>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n  ';
  } else { 
 ;__p+='\n    <div class="alert alert-warn" class="span12">No results found</div>\n    ';
  } 
