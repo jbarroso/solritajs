@@ -5,7 +5,7 @@
 			<ul>
 				<li <%=(isFirstPage) ? 'class="disabled"':'' %>>
 				<a <%=(isFirstPage) ? 'data-bypass':''%> 
-					href="<%=(isFirstPage) ? '#' : searchBase + '&start=0'%>" class="serverfirst">&lt;&lt;</a>
+					href="<%=(isFirstPage) ? '#' : searchBase + '&start=0'%>" class="serverfirst">«</a>
 				</li>
 
 				<li <%=(isFirstPage) ? 'class="disabled"':'' %>>
@@ -30,7 +30,7 @@
 				<li <%=(isLastPage) ? 'class="disabled"': ''%>>
 				<a <%=(isLastPage) ? 'data-bypass':''%> 
 					href="<%=(isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1))%>" 
-					class="serverlast">&gt;&gt;</a>
+					class="serverlast">»</a>
 				</li>
 			</ul>
 		</div>

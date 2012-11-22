@@ -12,7 +12,6 @@ define([
 
 			initialize: function (options) {
 				this.collection = options.collection;
-        this.setLayout();
 			},
 
 			routes: {
@@ -24,14 +23,7 @@ define([
         this.reset();
 				this.collection.query = app.defaultQuery;
 				this.collection.facetQueries = [];
-				var self = this;
-				/*this.collection.search({
-					success: function () {
-						self.setLayout();
-					}
-				});*/
         this.collection.search();
-
 			},
 
 			searchAction: function (params) {
@@ -46,17 +38,10 @@ define([
 				}
 				var facetQueries = this._getFacetQueriesFromParams(params);
 				this.collection.facetQueries = facetQueries;
-				var self = this;
-				/*this.collection.search({
-					success: function () {
-						self.setLayout();
-					}
-				});*/
-
         this.collection.search();
 			},
 
-			setLayout: function () {
+			initLayout: function () {
 				var self = this;
 				var main = app.useLayout({
 					template: "layouts/main",

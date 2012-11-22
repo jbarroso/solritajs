@@ -14,8 +14,12 @@ define([
 
       data: function () {
         return this.collection.infoSolr;
+      },
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
       }
-      
+
     });
 
     return PaginatedView;

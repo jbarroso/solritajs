@@ -11,6 +11,7 @@ define([
 
 			initialize: function () {
 				_.bindAll(this, 'search', 'getQuery');
+				this.collection.on('reset', this.render, this);
 			},
 
 			data: function () {
@@ -26,6 +27,7 @@ define([
 				var query = this.getQuery();
 				this.collection.query = query;
 				this.collection.currentPage = 0;
+        this.collection.reset();
 				this.collection.search();
 			},
 

@@ -454,45 +454,51 @@ __p+='<div class="well result">\n\t<div class="title">\n\t\t';
 ( name.valuehl )+
 '</h4>\n\t\t';
  } 
-;__p+='\n\t</div>\n\t<div>Id: '+
-( id )+
-'</div>\n\t';
+;__p+='\n\t</div>\n\t<dl class="dl-horizontal" style="margin:0">\n\t\t';
  if (typeof price_c!=="undefined") { 
-;__p+=' \n\t\t<div>Price: '+
+;__p+=' \n\t\t<dt>Price</dt>\n\t\t<dd>'+
 (price_c.valuehl)+
-'</div>\n\t';
+'</dd>\n\t\t';
  } 
-;__p+='\n\t';
+;__p+='\n\t\t';
  if (typeof features!=="undefined") { 
-;__p+=' \n\t\t<div>Features: '+
-(features.valuehl)+
-'</div>\n\t';
+;__p+=' \n\t\t\t<dt>Features</dt>\n\t\t\t';
+ for(var i=0; i< features.length; i++) { 
+;__p+='\n\t\t\t\t<dd>'+
+(features[i].valuehl)+
+'</dd>\n\t\t\t';
  } 
-;__p+='\n\t';
+;__p+='\n\t\t';
+ } 
+;__p+='\n\t\t';
  if (typeof inStock!=="undefined") { 
-;__p+=' \n\t\t<div>In Stock: '+
+;__p+=' \n\t\t<dt>In Stock<dt>\n\t\t<dd>'+
 (inStock.valuehl)+
-'</div>\n\t';
+'</dd>\n\t\t';
  } 
-;__p+='\n\t';
+;__p+='\n\t\t';
  if (typeof cat!=="undefined") { 
-;__p+=' \n\t\t<div>Category: '+
-(cat.valuehl)+
-'</div>\n\t';
+;__p+=' \n\t\t<dt>Categories</dt>\n\t\t\t';
+ for(var i=0; i< cat.length; i++) { 
+;__p+='\n\t\t\t\t<dd>'+
+(cat[i].valuehl)+
+'</dd>\n\t\t\t';
  } 
-;__p+='\n\t';
+;__p+='\n\t\t';
+ } 
+;__p+='\n\t\t';
  if (typeof manu!=="undefined") { 
-;__p+=' \n\t\t<div>Manufactory: '+
+;__p+=' \n\t\t<dt>Manufactory</dt>\n\t\t<dd>'+
 (manu.valuehl)+
-'</div>\n\t';
+'</dd>\n\t\t';
  } 
-;__p+='\n\t';
+;__p+='\n\t\t';
  if (typeof address_s!=="undefined") { 
-;__p+=' \n\t\t<div>Address: '+
+;__p+=' \n\t\t<dt>Address</dt>\n\t\t<dd>'+
 (address_s.valuehl)+
-'</div>\n\t';
+'</dd>\n\t\t';
  } 
-;__p+='\n</div>\n';
+;__p+='\n\t</dl>\n</div>\n';
 }
 return __p;
 };
@@ -565,7 +571,7 @@ if (total>0 && totalPages>1) {
 ((isFirstPage) ? 'data-bypass':'')+
 ' \n\t\t\t\t\thref="'+
 ((isFirstPage) ? '#' : searchBase + '&start=0')+
-'" class="serverfirst">&lt;&lt;</a>\n\t\t\t\t</li>\n\n\t\t\t\t<li '+
+'" class="serverfirst">«</a>\n\t\t\t\t</li>\n\n\t\t\t\t<li '+
 ((isFirstPage) ? 'class="disabled"':'' )+
 '>\n\t\t\t\t<a '+
 ((isFirstPage) ? 'data-bypass':'')+
@@ -597,7 +603,7 @@ if (total>0 && totalPages>1) {
 ((isLastPage) ? 'data-bypass':'')+
 ' \n\t\t\t\t\thref="'+
 ((isLastPage) ? '#' : searchBase + '&start=' + (perPage*(totalPages-1)))+
-'" \n\t\t\t\t\tclass="serverlast">&gt;&gt;</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</div>\n';
+'" \n\t\t\t\t\tclass="serverlast">»</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</div>\n';
 }
 ;__p+='\n';
 }
@@ -18487,7 +18493,9 @@ define('app',[
       defaultSortField: "price desc",
       paginationSize: 2,
       perPageArray: [3, 5, 10, 15, 20, 50],
-      sortFieldArray: ["price asc", "price desc"]
+      sortFieldArray: ["price asc", "price desc"],
+      hlSimplePre: "<em>",
+      hlSimplePro: "</em>"
     };
 
     // Localize or create a new JavaScript Template object.
@@ -19458,7 +19466,9 @@ define('modules/solrita/collections/items',[
 				},
 				'hl.fl': function () {
 					return '*';
-				}
+				},
+        'hl.simple.pre': app.hlSimplePre,
+        'hl.simple.pro': app.hlSimplePro
 			},
 
 			query: app.defaultQuery,
@@ -19494,21 +19504,45 @@ define('modules/solrita/collections/items',[
 			},
 
 			_getDocsWithValueAndValuehl: function (docs, highlighting) {
+        var self = this;
 				$.each(docs, function (nDoc, doc) {
 					var id = doc.id;
 					$.each(doc, function(field, value) {
-						var valuehl = value;
-						if (highlighting[id][field]!==undefined){
-							valuehl = highlighting[id][field][0];
-						}
-						var newValue = {value: value, valuehl: valuehl};
-						if (field!=="id"){
-							doc[field] = newValue;
+            if (field!=="id"){
+							doc[field] = self._getValuehl(highlighting, id, field, value);
 						}
 					});
 				});
 				return docs;
 			},
+
+      _getValuehl: function(highlighting, id, field, value) {
+        var valuehl = {};
+        var hl = highlighting[id][field];
+        if (_.isArray(value)){
+          var multipleValuehl = [];
+          $.each(value, function (nValue, currentValue) {
+            var currentValuehl = currentValue;
+            if (hl!==undefined) {
+              $.each(hl, function (nValuehl, currenthl) {
+                var currenthlNoTags = currenthl.replace(app.hlSimplePre,"").replace(app.hlSimplePro,"");
+                if (currentValue === currenthlNoTags) {
+                  currentValuehl = currenthl;
+                }
+              });
+            } 
+            multipleValuehl.push({value: currentValue, valuehl: currentValuehl});
+          });
+          valuehl = multipleValuehl;
+        } else {
+          var simpleValuehl = value;
+          if (hl!==undefined && hl[0]!==undefined){
+            simpleValuehl = hl[0];
+          }
+          valuehl = {value: value, valuehl: simpleValuehl};
+        }
+        return valuehl;
+      },
 
 			getInfoSolr: function () {
 				var info = this.info();
@@ -19585,6 +19619,7 @@ define('modules/solrita/views/search',[
 
 			initialize: function () {
 				_.bindAll(this, 'search', 'getQuery');
+				this.collection.on('reset', this.render, this);
 			},
 
 			data: function () {
@@ -19600,6 +19635,7 @@ define('modules/solrita/views/search',[
 				var query = this.getQuery();
 				this.collection.query = query;
 				this.collection.currentPage = 0;
+        this.collection.reset();
 				this.collection.search();
 			},
 
@@ -19992,7 +20028,11 @@ define('modules/solrita/views/results',[
 
 			stop: function () {
 				this.spinner.stop();
-			}
+			},
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
+      }
 
 		});
 
@@ -20051,7 +20091,12 @@ define('modules/solrita/views/filters',[
 
 			data: function () {
 				return this.collection;
-			}
+			},
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
+      }
+
 		});
 
 		return FiltersView;
@@ -20210,7 +20255,13 @@ define('modules/solrita/views/results-header',[
 
 			data: function () {
 				return this.collection.infoSolr;
-			}
+			},
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
+      }
+
+
 
 		});
 
@@ -20233,8 +20284,12 @@ define('modules/solrita/views/pagination',[
 
       data: function () {
         return this.collection.infoSolr;
+      },
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
       }
-      
+
     });
 
     return PaginatedView;
@@ -20296,7 +20351,6 @@ define('router',[
 
 			initialize: function (options) {
 				this.collection = options.collection;
-        this.setLayout();
 			},
 
 			routes: {
@@ -20308,14 +20362,7 @@ define('router',[
         this.reset();
 				this.collection.query = app.defaultQuery;
 				this.collection.facetQueries = [];
-				var self = this;
-				/*this.collection.search({
-					success: function () {
-						self.setLayout();
-					}
-				});*/
         this.collection.search();
-
 			},
 
 			searchAction: function (params) {
@@ -20330,17 +20377,10 @@ define('router',[
 				}
 				var facetQueries = this._getFacetQueriesFromParams(params);
 				this.collection.facetQueries = facetQueries;
-				var self = this;
-				/*this.collection.search({
-					success: function () {
-						self.setLayout();
-					}
-				});*/
-
         this.collection.search();
 			},
 
-			setLayout: function () {
+			initLayout: function () {
 				var self = this;
 				var main = app.useLayout({
 					template: "layouts/main",
@@ -20456,6 +20496,8 @@ require([
 		app.router = new Router({
 			collection: solrPaginatedCollection
 		});
+
+    app.router.initLayout();
 
 		// Trigger the initial route and enable HTML5 History API support, set the
 		// root folder to '/' by default.  Change in app.js.

@@ -56,7 +56,9 @@ define([
 				},
 				'hl.fl': function () {
 					return '*';
-				}
+				},
+        'hl.simple.pre': app.hlSimplePre,
+        'hl.simple.pro': app.hlSimplePro
 			},
 
 			query: app.defaultQuery,
@@ -92,21 +94,45 @@ define([
 			},
 
 			_getDocsWithValueAndValuehl: function (docs, highlighting) {
+        var self = this;
 				$.each(docs, function (nDoc, doc) {
 					var id = doc.id;
 					$.each(doc, function(field, value) {
-						var valuehl = value;
-						if (highlighting[id][field]!==undefined){
-							valuehl = highlighting[id][field][0];
-						}
-						var newValue = {value: value, valuehl: valuehl};
-						if (field!=="id"){
-							doc[field] = newValue;
+            if (field!=="id"){
+							doc[field] = self._getValuehl(highlighting, id, field, value);
 						}
 					});
 				});
 				return docs;
 			},
+
+      _getValuehl: function(highlighting, id, field, value) {
+        var valuehl = {};
+        var hl = highlighting[id][field];
+        if (_.isArray(value)){
+          var multipleValuehl = [];
+          $.each(value, function (nValue, currentValue) {
+            var currentValuehl = currentValue;
+            if (hl!==undefined) {
+              $.each(hl, function (nValuehl, currenthl) {
+                var currenthlNoTags = currenthl.replace(app.hlSimplePre,"").replace(app.hlSimplePro,"");
+                if (currentValue === currenthlNoTags) {
+                  currentValuehl = currenthl;
+                }
+              });
+            } 
+            multipleValuehl.push({value: currentValue, valuehl: currentValuehl});
+          });
+          valuehl = multipleValuehl;
+        } else {
+          var simpleValuehl = value;
+          if (hl!==undefined && hl[0]!==undefined){
+            simpleValuehl = hl[0];
+          }
+          valuehl = {value: value, valuehl: simpleValuehl};
+        }
+        return valuehl;
+      },
 
 			getInfoSolr: function () {
 				var info = this.info();

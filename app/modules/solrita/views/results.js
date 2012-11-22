@@ -34,7 +34,11 @@ define([
 
 			stop: function () {
 				this.spinner.stop();
-			}
+			},
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
+      }
 
 		});
 

@@ -31,7 +31,7 @@ define(['modules/solrita', 'app'], function (Solrita, app) {
 				});
 				it("should has endIndex in infoSolr", function () {
 					var infoSolr = this.paginatedCollection.infoSolr;
-				  var endIndexExpected = Math.min((app.paginationSize * 2), infoSolr.totalPages);
+					var endIndexExpected = Math.min((app.paginationSize * 2), infoSolr.totalPages);
 					expect(infoSolr.endIndex).toEqual(endIndexExpected);
 				});
 				it("should has facetCounts", function () {
@@ -83,10 +83,22 @@ define(['modules/solrita', 'app'], function (Solrita, app) {
 				it("should has a record with a name valuehl", function () {
 					expect(this.paginatedCollection.models[0].get("name").valuehl).toEqual("<em>Solr</em>, the Enterprise Search Server");
 				});
+        it("should has a record with a hl multiple field name/valuehl (cat)", function () {
+					var cats = this.paginatedCollection.models[0].get["cat"];
+          var value = "software";
+          var nameValue = {value:value, valuehl: value};
+					expect(_.contains(cats, nameValue)); 
+				});
 
+				it("should has a record with a hl multiple field name/valuehl (features)", function () {
+					var features = this.paginatedCollection.models[0].get["features"];
+          var value = "Scalability - Efficient Replication to other Solr Search Servers";
+          var valuehl = "Scalability - Efficient Replication to other <em>Solr</em> Search Servers";
+          var nameValue = {value: value, valuehl: valuehl};
+					expect(_.contains(features, nameValue)); 
+				});
 
 			});
-
 
 			describe("with no records found", function () {
 				beforeEach(function () {
@@ -110,7 +122,6 @@ define(['modules/solrita', 'app'], function (Solrita, app) {
 				});
 			});
 		});
-
 
 		describe("With no Stub", function () {
 			describe("getCurrentParams", function () {

@@ -16,7 +16,7 @@ define(['jquery', 'lodash', 'backbone', 'router', 'modules/solrita', 'app'], fun
 			this.router = new Router({
 				collection: this.paginatedCollection
 			});
-			sinon.stub(this.router, "setLayout");
+			sinon.stub(this.router, "initLayout");
 			this.searchActionSpy = spyOn(this.router, 'searchAction').andCallThrough();
 			var that = this;
 			this.getNewSearchPushStateSpy = function (params) {

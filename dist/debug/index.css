@@ -5839,19 +5839,19 @@ button.close {
   }
 }
 body {
-  margin: 0px 15px 0px 15px
+	margin: 0px 15px 0px 15px
 }
 #subtitle {
 	margin-top:0px;
 	white-space: nowrap;
 }
 #results {
-  list-style-type:none;
-  display:block;
-  clear:both;
+	list-style-type:none;
+	display:block;
+	clear:both;
 }
 #results>div div:nth-child(odd) .result {
-  background-color: #ffffff;
+	background-color: #ffffff;
 }
 #sort select {
 	width: 105px;
@@ -5860,27 +5860,41 @@ body {
 	width: 55px;
 }
 .result div {
-  padding: 2px;
+	padding: 2px;
+}
+.result .title h4 {
+	margin-top: 0px;
 }
 .result em {
-  font-weight: bold;
-  font-style: normal;
+	font-weight: bold;
+	font-style: normal;
 }
+
 .spinner {
 	text-align: center;
 	margin: 0px auto;
 	padding: 0px 0px 100px 0px;
 }
 @media(max-width: 1024px) {
-  body {
-    padding: 0;
+	body {
+		padding: 0;
 		margin: 0px 5px 0px 5px;
-  }
+	}
+}
+
+@media (min-width: 767px){
+	.result .dl-horizontal dt {
+		width: 90px;
+	}
+	.result .dl-horizontal dd {
+		margin-left: 100px;
+	}
 }
 @media(max-width: 580px) {
 	#subtitle {
 		display: none;
 	}
+
 }
 
 

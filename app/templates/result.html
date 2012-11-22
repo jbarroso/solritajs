@@ -6,23 +6,34 @@
 		<h4><%= name.valuehl %></h4>
 		<% } %>
 	</div>
-	<div>Id: <%= id %></div>
-	<% if (typeof price_c!=="undefined") { %> 
-		<div>Price: <%=price_c.valuehl%></div>
-	<% } %>
-	<% if (typeof features!=="undefined") { %> 
-		<div>Features: <%=features.valuehl%></div>
-	<% } %>
-	<% if (typeof inStock!=="undefined") { %> 
-		<div>In Stock: <%=inStock.valuehl%></div>
-	<% } %>
-	<% if (typeof cat!=="undefined") { %> 
-		<div>Category: <%=cat.valuehl%></div>
-	<% } %>
-	<% if (typeof manu!=="undefined") { %> 
-		<div>Manufactory: <%=manu.valuehl%></div>
-	<% } %>
-	<% if (typeof address_s!=="undefined") { %> 
-		<div>Address: <%=address_s.valuehl%></div>
-	<% } %>
+	<dl class="dl-horizontal" style="margin:0">
+		<% if (typeof price_c!=="undefined") { %> 
+		<dt>Price</dt>
+		<dd><%=price_c.valuehl%></dd>
+		<% } %>
+		<% if (typeof features!=="undefined") { %> 
+			<dt>Features</dt>
+			<% for(var i=0; i< features.length; i++) { %>
+				<dd><%=features[i].valuehl%></dd>
+			<% } %>
+		<% } %>
+		<% if (typeof inStock!=="undefined") { %> 
+		<dt>In Stock<dt>
+		<dd><%=inStock.valuehl%></dd>
+		<% } %>
+		<% if (typeof cat!=="undefined") { %> 
+		<dt>Categories</dt>
+			<% for(var i=0; i< cat.length; i++) { %>
+				<dd><%=cat[i].valuehl%></dd>
+			<% } %>
+		<% } %>
+		<% if (typeof manu!=="undefined") { %> 
+		<dt>Manufactory</dt>
+		<dd><%=manu.valuehl%></dd>
+		<% } %>
+		<% if (typeof address_s!=="undefined") { %> 
+		<dt>Address</dt>
+		<dd><%=address_s.valuehl%></dd>
+		<% } %>
+	</dl>
 </div>

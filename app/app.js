@@ -36,7 +36,9 @@ define([
       defaultSortField: "price desc",
       paginationSize: 2,
       perPageArray: [3, 5, 10, 15, 20, 50],
-      sortFieldArray: ["price asc", "price desc"]
+      sortFieldArray: ["price asc", "price desc"],
+      hlSimplePre: "<em>",
+      hlSimplePro: "</em>"
     };
 
     // Localize or create a new JavaScript Template object.

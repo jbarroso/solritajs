@@ -26,7 +26,12 @@ define([
 
 			data: function () {
 				return this.collection;
-			}
+			},
+
+      cleanup: function() {
+        this.collection.off(null, null, this);
+      }
+
 		});
 
 		return FiltersView;
