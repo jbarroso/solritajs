@@ -7,13 +7,13 @@ A Backbone.js client for Apache Solr.
 
 [http://solritajs.herokuapp.com/](http://solritajs.herokuapp.com/)
 
-This demo is also using a Solr server deployed to Heroku with the sample schema and data (computer components, screens, etc.) that are included in the Solr tutorial
+This demo is also using a Solr server deployed to Heroku with the sample schema and data (computer components, screens, etc.) that are included in the [Solr tutorial](http://lucene.apache.org/solr/4_0_0/tutorial.html).
 
-You can also run it by yourself using Backbone Boilerplate framework tool: grunt-bbb and with your own Solr server (app.js includes all the configuration options).
+You can also run it by yourself using Backbone Boilerplate framework tool: [grunt-bbb](http://github.com/backbone-boilerplate/grunt-bbb) and with your own Solr server (app.js includes all the configuration options).
 
 ## Features / Overview
 
-Based on the VelocityResponseWriter (aka Solritas) but 100% made with javascript. It is my first open source project in Github and also with these fantastic new javascript libraries! 
+Based on the [VelocityResponseWriter](http://wiki.apache.org/solr/VelocityResponseWriter) (aka Solritas) but 100% made with javascript. It is my first open source project in Github and also with these fantastic new javascript libraries! 
 
 My goal is cover all all the features that Solritas has but for the moment I have:
 * The simple main search form
@@ -34,8 +34,8 @@ I am also playing with Twitter’s Bootstrap and responsive design.
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
 * [Spin.js](https://github.com/fgnass/spin.js)
 * Integration and unit test with:
-** [Jasmine](http://pivotal.github.com/jasmine/) ([jasmine-jquery](https://github.com/velesin/jasmine-jquery) and  [jasmine-loadTemplates](https://gist.github.com/1359867) to load json)
-** [Sinon](http://sinonjs.org/) (spies, stubs and mocks)
+* * [Jasmine](http://pivotal.github.com/jasmine/) ([jasmine-jquery](https://github.com/velesin/jasmine-jquery) and  [jasmine-loadTemplates](https://gist.github.com/1359867) to load json)
+* * [Sinon](http://sinonjs.org/) (spies, stubs and mocks)
 
 ## Release HIstory
 
