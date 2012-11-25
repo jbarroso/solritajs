@@ -1,8 +1,8 @@
 define([
-	'backbone'
-	], function (Backbone) {
+  'backbone'
+  ], function (Backbone) {
 
-		var SolrItem = Backbone.Model.extend({});
+    var SolrItem = Backbone.Model.extend({});
 
-		return SolrItem;
-	});
+    return SolrItem;
+  });

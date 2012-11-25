@@ -1,47 +1,47 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone',
-	'app',
-	'modules/solrita/views/option'
-	], function ($, _, Backbone, app, OptionView) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app',
+  'modules/solrita/views/option'
+  ], function ($, _, Backbone, app, OptionView) {
 
-		var SortView = Backbone.View.extend({
+    var SortView = Backbone.View.extend({
 
-			tagName: "select",
+      tagName: "select",
 
-			initialize: function (options) {
-				_.bindAll(this, "sortFieldSelected");
-			},
+      initialize: function (options) {
+        _.bindAll(this, "sortFieldSelected");
+      },
 
-			events: {
-				"change": "sortFieldSelected"
-			},
+      events: {
+        "change": "sortFieldSelected"
+      },
 
-			beforeRender: function () {
-				var self = this;
-				$(app.sortFieldArray).each(function (num, item) {
-					self.insertView(new OptionView({
-						name: item,
-						value: item
-					}));
-				});
-				this.$el.addClass("input-medium");
-			},
+      beforeRender: function () {
+        var self = this;
+        $(app.sortFieldArray).each(function (num, item) {
+          self.insertView(new OptionView({
+            name: item,
+            value: item
+          }));
+        });
+        this.$el.addClass("input-medium");
+      },
 
-			afterRender: function () {
-				this.$el.val(this.collection.sortField);
-			},
+      afterRender: function () {
+        this.$el.val(this.collection.sortField);
+      },
 
-			sortFieldSelected: function (e) {
-				e.preventDefault();
-				var sortFieldSelected = $(e.target).val();
-				this.collection.sortField = sortFieldSelected;
+      sortFieldSelected: function (e) {
+        e.preventDefault();
+        var sortFieldSelected = $(e.target).val();
+        this.collection.sortField = sortFieldSelected;
 
-				Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
-			}
+        Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
+      }
 
-		});
+    });
 
-		return SortView;
-	});
+    return SortView;
+  });

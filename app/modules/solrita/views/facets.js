@@ -1,23 +1,23 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var FacetsView = Backbone.View.extend({
+  var FacetsView = Backbone.View.extend({
 
-			template: 'facets',
+    template: 'facets',
 
-			initialize: function () {
-				this.collection.on('reset', this.render, this);
-			},
+    initialize: function () {
+      this.collection.on('reset', this.render, this);
+    },
 
-			data: function () {
-				return this.collection;
-			}
+    data: function () {
+      return this.collection;
+    }
 
-		});
+  });
 
-		return FacetsView;
+  return FacetsView;
 
-	});
+});

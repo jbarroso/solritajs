@@ -1,43 +1,43 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone',
-	'app'
-	], function ($, _, Backbone, app) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app'
+  ], function ($, _, Backbone, app) {
 
-		var SearchView = Backbone.View.extend({
+    var SearchView = Backbone.View.extend({
 
-			template: 'search',
+      template: 'search',
 
-			initialize: function () {
-				_.bindAll(this, 'search', 'getQuery');
-				this.collection.on('reset', this.render, this);
-			},
+      initialize: function () {
+        _.bindAll(this, 'search', 'getQuery');
+        this.collection.on('reset', this.render, this);
+      },
 
-			data: function () {
-				return this.collection.infoSolr;
-			},
+      data: function () {
+        return this.collection.infoSolr;
+      },
 
-			events: {
-				'submit #search-form': 'search'
-			},
+      events: {
+        'submit #search-form': 'search'
+      },
 
-			search: function (e) {
-				e.preventDefault();
-				var query = this.getQuery();
-				this.collection.query = query;
-				this.collection.currentPage = 0;
+      search: function (e) {
+        e.preventDefault();
+        var query = this.getQuery();
+        this.collection.query = query;
+        this.collection.currentPage = 0;
         this.collection.reset();
-				this.collection.search();
-			},
+        this.collection.search();
+      },
 
-			getQuery: function () {
-				var query = $('#search-query').val();
-				if (!query) query = app.defaultQuery;
-				return query;
-			}
+      getQuery: function () {
+        var query = $('#search-query').val();
+        if (!query) query = app.defaultQuery;
+        return query;
+      }
 
-		});
+    });
 
-		return SearchView;
-	});
+    return SearchView;
+  });

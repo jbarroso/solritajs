@@ -16,7 +16,7 @@ define([
         return this.collection.infoSolr;
       },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 

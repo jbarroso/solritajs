@@ -1,38 +1,38 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var FiltersView = Backbone.View.extend({
+    var FiltersView = Backbone.View.extend({
 
-			template: 'filters',
+      template: 'filters',
 
-			initialize: function () {
-				this.collection.on('reset', this.render, this);
-			},
+      initialize: function () {
+        this.collection.on('reset', this.render, this);
+      },
 
-			events: {
-				'click .rfq': 'removeFilter'
-			},
+      events: {
+        'click .rfq': 'removeFilter'
+      },
 
-			removeFilter: function (e) {
-				e.preventDefault();
-				var filterQuery = $(e.target).attr("id");
-				this.collection.removeFacetQuery(filterQuery);
-				this.collection.search();
-				Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
-			},
+      removeFilter: function (e) {
+        e.preventDefault();
+        var filterQuery = $(e.target).attr("id");
+        this.collection.removeFacetQuery(filterQuery);
+        this.collection.search();
+        Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
+      },
 
-			data: function () {
-				return this.collection;
-			},
+      data: function () {
+        return this.collection;
+      },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 
-		});
+    });
 
-		return FiltersView;
-	});
+    return FiltersView;
+  });

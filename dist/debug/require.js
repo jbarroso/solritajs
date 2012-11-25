@@ -18551,13 +18551,13 @@ define('app',[
   });
 
 define('modules/solrita/models/item',[
-	'backbone'
-	], function (Backbone) {
+  'backbone'
+  ], function (Backbone) {
 
-		var SolrItem = Backbone.Model.extend({});
+    var SolrItem = Backbone.Model.extend({});
 
-		return SolrItem;
-	});
+    return SolrItem;
+  });
 
 /*globals Backbone:true, _:true, jQuery:true*/
 Backbone.Paginator = (function ( Backbone, _, $ ) {
@@ -19409,267 +19409,273 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 define("plugins/backbone.paginator", function(){});
 
 define('modules/solrita/collections/items',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'modules/solrita/models/item',
-	'app',
-	'plugins/backbone.paginator'
-	], function ($, _, Backbone, model, app) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'modules/solrita/models/item',
+  'app',
+  'plugins/backbone.paginator'
+  ], function ($, _, Backbone, model, app) {
 
-		var SolrPaginatedCollection = Backbone.Paginator.requestPager.extend({
+    var SolrPaginatedCollection = Backbone.Paginator.requestPager.extend({
 
-			initialize: function () {
-				this.facetFields = app.defaultFacetFieldsArray;
-				this.facetQueries = [];
-				this.facetCounts = {};
-			},
+      initialize: function () {
+        this.facetFields = app.defaultFacetFieldsArray;
+        this.facetQueries = [];
+        this.facetCounts = {};
+      },
 
-			model: model,
+      model: model,
 
-			paginator_core: {
-				url: app.solrURL,
-				jsonp: 'json.wrf'
-			},
+      paginator_core: {
+        url: app.solrURL,
+        jsonp: 'json.wrf'
+      },
 
-			paginator_ui: {
-				firstPage: 0,
-				currentPage: 0,
-				perPage: app.defaultPerPage,
-				sortField: app.defaultSortField
-			},
+      paginator_ui: {
+        firstPage: 0,
+        currentPage: 0,
+        perPage: app.defaultPerPage,
+        sortField: app.defaultSortField
+      },
 
-			server_api: {
-				'q': function () {
-					return this.query;
-				},
-				'rows': function () {
-					return this.perPage;
-				},
-				'start': function () {
-					return this.currentPage * this.perPage;
-				},
-				'sort': function () {
-					return this.sortField;
-				},
-				'wt': 'json',
-				'facet': 'true',
-				'facet.mincount': 1,
-				'facet.field': function () {
-					return this.facetFields;
-				},
-				'fq': function () {
-					return this.facetQueries;
-				},
-				'hl': function () {
-					return true;
-				},
-				'hl.fl': function () {
-					return '*';
-				},
+      server_api: {
+        'q': function () {
+          return this.query;
+        },
+        'rows': function () {
+          return this.perPage;
+        },
+        'start': function () {
+          return this.currentPage * this.perPage;
+        },
+        'sort': function () {
+          return this.sortField;
+        },
+        'wt': 'json',
+        'facet': 'true',
+        'facet.mincount': 1,
+        'facet.field': function () {
+          return this.facetFields;
+        },
+        'fq': function () {
+          return this.facetQueries;
+        },
+        'hl': function () {
+          return true;
+        },
+        'hl.fl': function () {
+          return '*';
+        },
         'hl.simple.pre': app.hlSimplePre,
         'hl.simple.pro': app.hlSimplePro
-			},
+      },
 
-			query: app.defaultQuery,
+      query: app.defaultQuery,
 
-			total: 0,
+      total: 0,
 
-			solrStatus: 0,
+      solrStatus: 0,
 
-			qTime: 0,
+      qTime: 0,
 
-			facetFields: app.defaultFacetFieldsArray,
+      facetFields: app.defaultFacetFieldsArray,
 
-			facetQueries: [],
+      facetQueries: [],
 
-			facetCounts: {},
+      facetCounts: {},
 
-			infoSolr: {
-				total: 0,
-				printQuery: '',
+      infoSolr: {
+        total: 0,
+        printQuery: '',
         noResultsFound: false
-			},
+      },
 
-			parse: function (response) {
-				this.total = response.response.numFound;
-				this.totalPages = Math.ceil(this.total / this.perPage);
-				this.solrStatus = response.responseHeader.status;
-				this.qTime = response.responseHeader.QTime;
-				this.facetCounts = response.facet_counts;
-				this.infoSolr = this.getInfoSolr();
-				var docs = this._getDocsWithValueAndValuehl(response.response.docs, response.highlighting);
+      parse: function (response) {
+        this.total = response.response.numFound;
+        this.totalPages = Math.ceil(this.total / this.perPage);
+        this.solrStatus = response.responseHeader.status;
+        this.qTime = response.responseHeader.QTime;
+        this.facetCounts = response.facet_counts;
+        this.infoSolr = this.getInfoSolr();
+        var docs = this._getDocsWithValueAndValuehl(response.response.docs, response.highlighting);
         this.trigger("parse");
-				return docs;
-			},
+        return docs;
+      },
 
-			_getDocsWithValueAndValuehl: function (docs, highlighting) {
+      _getDocsWithValueAndValuehl: function (docs, highlighting) {
         var self = this;
-				$.each(docs, function (nDoc, doc) {
-					var id = doc.id;
-					$.each(doc, function(field, value) {
-            if (field!=="id"){
-							doc[field] = self._getValuehl(highlighting, id, field, value);
-						}
-					});
-				});
-				return docs;
-			},
+        $.each(docs, function (nDoc, doc) {
+          var id = doc.id;
+          $.each(doc, function (field, value) {
+            if (field !== "id") {
+              doc[field] = self._getValuehl(highlighting, id, field, value);
+            }
+          });
+        });
+        return docs;
+      },
 
-      _getValuehl: function(highlighting, id, field, value) {
+      _getValuehl: function (highlighting, id, field, value) {
         var valuehl = {};
         var hl = highlighting[id][field];
-        if (_.isArray(value)){
+        if (_.isArray(value)) {
           var multipleValuehl = [];
           $.each(value, function (nValue, currentValue) {
             var currentValuehl = currentValue;
-            if (hl!==undefined) {
+            if (hl !== undefined) {
               $.each(hl, function (nValuehl, currenthl) {
-                var currenthlNoTags = currenthl.replace(app.hlSimplePre,"").replace(app.hlSimplePro,"");
+                var currenthlNoTags = currenthl.replace(app.hlSimplePre, "").replace(app.hlSimplePro, "");
                 if (currentValue === currenthlNoTags) {
                   currentValuehl = currenthl;
                 }
               });
-            } 
-            multipleValuehl.push({value: currentValue, valuehl: currentValuehl});
+            }
+            multipleValuehl.push({
+              value: currentValue,
+              valuehl: currentValuehl
+            });
           });
           valuehl = multipleValuehl;
         } else {
           var simpleValuehl = value;
-          if (hl!==undefined && hl[0]!==undefined){
+          if (hl !== undefined && hl[0] !== undefined) {
             simpleValuehl = hl[0];
           }
-          valuehl = {value: value, valuehl: simpleValuehl};
+          valuehl = {
+            value: value,
+            valuehl: simpleValuehl
+          };
         }
         return valuehl;
       },
 
-			getInfoSolr: function () {
-				var info = this.info();
-				info.qTime = this.qTime;
-				info.total = this.total;
-				info.query = this.query;
-				info.printQuery = (this.query !== app.defaultQuery) ? this.query : '';
-				// I use _.escape because it changes " to &quote;
-				// This is necessary to put the value in the search's input text
-				info.printQuery = _.escape(info.printQuery);
-				info.currentParams = this.getCurrentParams();
-				info.startRecord = this.currentPage * this.perPage;
-				info.beginIndex = Math.max(0, this.currentPage - app.paginationSize);
-				info.endIndex = Math.min(info.beginIndex + (app.paginationSize * 2), info.totalPages);
-				if (info.firstPage === undefined) {
-					info.firstPage = 0;
-				}
-				info.searchBase = "search?"+ info.currentParams;
-				info.isFirstPage = (info.firstPage===info.currentPage);
-				info.isLastPage = (info.currentPage+1===info.totalPages);
-        info.noResultsFound = (this.total===0);
+      getInfoSolr: function () {
+        var info = this.info();
+        info.qTime = this.qTime;
+        info.total = this.total;
+        info.query = this.query;
+        info.printQuery = (this.query !== app.defaultQuery) ? this.query : '';
+        // I use _.escape because it changes " to &quote;
+        // This is necessary to put the value in the search's input text
+        info.printQuery = _.escape(info.printQuery);
+        info.currentParams = this.getCurrentParams();
+        info.startRecord = this.currentPage * this.perPage;
+        info.beginIndex = Math.max(0, this.currentPage - app.paginationSize);
+        info.endIndex = Math.min(info.beginIndex + (app.paginationSize * 2), info.totalPages);
+        if (info.firstPage === undefined) {
+          info.firstPage = 0;
+        }
+        info.searchBase = "search?" + info.currentParams;
+        info.isFirstPage = (info.firstPage === info.currentPage);
+        info.isLastPage = (info.currentPage + 1 === info.totalPages);
+        info.noResultsFound = (this.total === 0);
 
-				return info;
-			},
+        return info;
+      },
 
-			removeFacetQuery: function (facetQuery) {
-				var index = $.inArray(facetQuery, this.facetQueries);
-				if (index != -1) {
-					this.facetQueries.splice(index, (this.facetQueries.length - index));
-				}
-			},
+      removeFacetQuery: function (facetQuery) {
+        var index = $.inArray(facetQuery, this.facetQueries);
+        if (index != -1) {
+          this.facetQueries.splice(index, (this.facetQueries.length - index));
+        }
+      },
 
-			search: function (options) {
-				if (!_.isObject(options)) {
-					options = {};
-				}
-				return this.pager(options);
-			},
+      search: function (options) {
+        if (!_.isObject(options)) {
+          options = {};
+        }
+        return this.pager(options);
+      },
 
-			getCurrentParams: function () {
-				var params, sQuery = '';
-				if (this.query !== '' && this.query !== app.defaultQuery) {
-					sQuery = escape(this.query);
-				}
-				params = 'q=' + sQuery;
-				$.each(this.facetQueries, function (index, value) {
-					params = params + '&';
-					params = params + 'fq=' + value;
-				});
-				if (this.perPage !== undefined && this.perPage !== app.defaultPerPage) {
-					params = params + '&num=' + this.perPage;
-				}
-				if (this.sortField !== undefined && this.sortField !== app.defaultSortField) {
-					params = params + '&sort=' + this.sortField;
-				}
-				return params;
-			}
-		});
+      getCurrentParams: function () {
+        var params, sQuery = '';
+        if (this.query !== '' && this.query !== app.defaultQuery) {
+          sQuery = escape(this.query);
+        }
+        params = 'q=' + sQuery;
+        $.each(this.facetQueries, function (index, value) {
+          params = params + '&';
+          params = params + 'fq=' + value;
+        });
+        if (this.perPage !== undefined && this.perPage !== app.defaultPerPage) {
+          params = params + '&num=' + this.perPage;
+        }
+        if (this.sortField !== undefined && this.sortField !== app.defaultSortField) {
+          params = params + '&sort=' + this.sortField;
+        }
+        return params;
+      }
+    });
 
-		return SolrPaginatedCollection;
+    return SolrPaginatedCollection;
 
-	});
+  });
 
 define('modules/solrita/views/search',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'app'
-	], function ($, _, Backbone, app) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app'
+  ], function ($, _, Backbone, app) {
 
-		var SearchView = Backbone.View.extend({
+    var SearchView = Backbone.View.extend({
 
-			template: 'search',
+      template: 'search',
 
-			initialize: function () {
-				_.bindAll(this, 'search', 'getQuery');
-				this.collection.on('reset', this.render, this);
-			},
+      initialize: function () {
+        _.bindAll(this, 'search', 'getQuery');
+        this.collection.on('reset', this.render, this);
+      },
 
-			data: function () {
-				return this.collection.infoSolr;
-			},
+      data: function () {
+        return this.collection.infoSolr;
+      },
 
-			events: {
-				'submit #search-form': 'search'
-			},
+      events: {
+        'submit #search-form': 'search'
+      },
 
-			search: function (e) {
-				e.preventDefault();
-				var query = this.getQuery();
-				this.collection.query = query;
-				this.collection.currentPage = 0;
+      search: function (e) {
+        e.preventDefault();
+        var query = this.getQuery();
+        this.collection.query = query;
+        this.collection.currentPage = 0;
         this.collection.reset();
-				this.collection.search();
-			},
+        this.collection.search();
+      },
 
-			getQuery: function () {
-				var query = $('#search-query').val();
-				if (!query) query = app.defaultQuery;
-				return query;
-			}
+      getQuery: function () {
+        var query = $('#search-query').val();
+        if (!query) query = app.defaultQuery;
+        return query;
+      }
 
-		});
+    });
 
-		return SearchView;
-	});
+    return SearchView;
+  });
 
 define('modules/solrita/views/result',[
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var ResultView = Backbone.View.extend({
+    var ResultView = Backbone.View.extend({
 
-			template: 'result',
+      template: 'result',
 
-			tagName: 'div',
+      tagName: 'div',
 
-			data: function () {
-				return this.model.toJSON();
-			}
+      data: function () {
+        return this.model.toJSON();
+      }
 
-		});
+    });
 
-		return ResultView;
-	});
+    return ResultView;
+  });
 
 //fgnass.github.com/spin.js#v1.2.7
 !function(window, document, undefined) {
@@ -19993,280 +19999,280 @@ define('modules/solrita/views/result',[
 }(window, document);
 
 define('modules/solrita/views/results',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'modules/solrita/views/result',
-	'plugins/spin'
-	], function ($, _, Backbone, ResultView, Spinner) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'modules/solrita/views/result',
+  'plugins/spin'
+  ], function ($, _, Backbone, ResultView, Spinner) {
 
-		var ResultsView = Backbone.View.extend({
+    var ResultsView = Backbone.View.extend({
 
-			spinner: {},
+      spinner: {},
 
-			initialize: function () {
-				this.collection.on('reset', this.render, this);
-				this.collection.on('fetch', this.start, this);
-				this.collection.on('parse', this.stop, this);
-				this.spinner = new Spinner({
-					color: "#777"
-				});
-			},
+      initialize: function () {
+        this.collection.on('reset', this.render, this);
+        this.collection.on('fetch', this.start, this);
+        this.collection.on('parse', this.stop, this);
+        this.spinner = new Spinner({
+          color: "#777"
+        });
+      },
 
-			beforeRender: function () {
-				var self = this;
-				this.collection.each(function (item) {
-					self.insertView(new ResultView({
-						model: item
-					}));
-				});
-			},
+      beforeRender: function () {
+        var self = this;
+        this.collection.each(function (item) {
+          self.insertView(new ResultView({
+            model: item
+          }));
+        });
+      },
 
-			start: function () {
-				this.spinner.spin(this.el);
-			},
+      start: function () {
+        this.spinner.spin(this.el);
+      },
 
-			stop: function () {
-				this.spinner.stop();
-			},
+      stop: function () {
+        this.spinner.stop();
+      },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 
-		});
+    });
 
-		return ResultsView;
-	});
+    return ResultsView;
+  });
 
 define('modules/solrita/views/facets',[
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var FacetsView = Backbone.View.extend({
+  var FacetsView = Backbone.View.extend({
 
-			template: 'facets',
+    template: 'facets',
 
-			initialize: function () {
-				this.collection.on('reset', this.render, this);
-			},
+    initialize: function () {
+      this.collection.on('reset', this.render, this);
+    },
 
-			data: function () {
-				return this.collection;
-			}
+    data: function () {
+      return this.collection;
+    }
 
-		});
+  });
 
-		return FacetsView;
+  return FacetsView;
 
-	});
+});
 
 define('modules/solrita/views/filters',[
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var FiltersView = Backbone.View.extend({
+    var FiltersView = Backbone.View.extend({
 
-			template: 'filters',
+      template: 'filters',
 
-			initialize: function () {
-				this.collection.on('reset', this.render, this);
-			},
+      initialize: function () {
+        this.collection.on('reset', this.render, this);
+      },
 
-			events: {
-				'click .rfq': 'removeFilter'
-			},
+      events: {
+        'click .rfq': 'removeFilter'
+      },
 
-			removeFilter: function (e) {
-				e.preventDefault();
-				var filterQuery = $(e.target).attr("id");
-				this.collection.removeFacetQuery(filterQuery);
-				this.collection.search();
-				Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
-			},
+      removeFilter: function (e) {
+        e.preventDefault();
+        var filterQuery = $(e.target).attr("id");
+        this.collection.removeFacetQuery(filterQuery);
+        this.collection.search();
+        Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
+      },
 
-			data: function () {
-				return this.collection;
-			},
+      data: function () {
+        return this.collection;
+      },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 
-		});
+    });
 
-		return FiltersView;
-	});
+    return FiltersView;
+  });
 
 define('modules/solrita/views/option',[
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var OptionView = Backbone.View.extend({
+    var OptionView = Backbone.View.extend({
 
-			tagName: "option",
+      tagName: "option",
 
-			name: "",
+      name: "",
 
-			value: "",
+      value: "",
 
-			initialize: function (options) {
-				this.name = options.name;
-				this.value = options.value;
-			},
+      initialize: function (options) {
+        this.name = options.name;
+        this.value = options.value;
+      },
 
-			beforeRender: function () {
-				$(this.el).attr('value', this.value).html(this.name);
-			}
+      beforeRender: function () {
+        $(this.el).attr('value', this.value).html(this.name);
+      }
 
-		});
+    });
 
-		return OptionView;
-	});
+    return OptionView;
+  });
 
 define('modules/solrita/views/num',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'app',
-	'modules/solrita/views/option'
-	], function ($, _, Backbone, app, OptionView) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app',
+  'modules/solrita/views/option'
+  ], function ($, _, Backbone, app, OptionView) {
 
-		var NumView = Backbone.View.extend({
+    var NumView = Backbone.View.extend({
 
-			tagName: "select",
+      tagName: "select",
 
-			initialize: function (options) {
-				_.bindAll(this, "numSelected");
-			},
+      initialize: function (options) {
+        _.bindAll(this, "numSelected");
+      },
 
-			events: {
-				"change": "numSelected"
-			},
+      events: {
+        "change": "numSelected"
+      },
 
-			beforeRender: function () {
-				var self = this;
-				$(app.perPageArray).each(function (num, item) {
-					self.insertView(new OptionView({
-						name: item,
-						value: item
-					}));
-				});
-				this.$el.addClass("input-mini");
-			},
+      beforeRender: function () {
+        var self = this;
+        $(app.perPageArray).each(function (num, item) {
+          self.insertView(new OptionView({
+            name: item,
+            value: item
+          }));
+        });
+        this.$el.addClass("input-mini");
+      },
 
-			afterRender: function () {
-				this.$el.val(this.collection.perPage);
-			},
+      afterRender: function () {
+        this.$el.val(this.collection.perPage);
+      },
 
-			numSelected: function (e) {
-				e.preventDefault();
-				var per = $(e.target).val();
-				this.collection.perPage = per;
+      numSelected: function (e) {
+        e.preventDefault();
+        var per = $(e.target).val();
+        this.collection.perPage = per;
 
-				Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
-			}
+        Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
+      }
 
-		});
+    });
 
-		return NumView;
-	});
+    return NumView;
+  });
 
 define('modules/solrita/views/sort',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'app',
-	'modules/solrita/views/option'
-	], function ($, _, Backbone, app, OptionView) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app',
+  'modules/solrita/views/option'
+  ], function ($, _, Backbone, app, OptionView) {
 
-		var SortView = Backbone.View.extend({
+    var SortView = Backbone.View.extend({
 
-			tagName: "select",
+      tagName: "select",
 
-			initialize: function (options) {
-				_.bindAll(this, "sortFieldSelected");
-			},
+      initialize: function (options) {
+        _.bindAll(this, "sortFieldSelected");
+      },
 
-			events: {
-				"change": "sortFieldSelected"
-			},
+      events: {
+        "change": "sortFieldSelected"
+      },
 
-			beforeRender: function () {
-				var self = this;
-				$(app.sortFieldArray).each(function (num, item) {
-					self.insertView(new OptionView({
-						name: item,
-						value: item
-					}));
-				});
-				this.$el.addClass("input-medium");
-			},
+      beforeRender: function () {
+        var self = this;
+        $(app.sortFieldArray).each(function (num, item) {
+          self.insertView(new OptionView({
+            name: item,
+            value: item
+          }));
+        });
+        this.$el.addClass("input-medium");
+      },
 
-			afterRender: function () {
-				this.$el.val(this.collection.sortField);
-			},
+      afterRender: function () {
+        this.$el.val(this.collection.sortField);
+      },
 
-			sortFieldSelected: function (e) {
-				e.preventDefault();
-				var sortFieldSelected = $(e.target).val();
-				this.collection.sortField = sortFieldSelected;
+      sortFieldSelected: function (e) {
+        e.preventDefault();
+        var sortFieldSelected = $(e.target).val();
+        this.collection.sortField = sortFieldSelected;
 
-				Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
-			}
+        Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
+      }
 
-		});
+    });
 
-		return SortView;
-	});
+    return SortView;
+  });
 
 define('modules/solrita/views/results-header',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'modules/solrita/views/num',
-	'modules/solrita/views/sort'
-	], function ($, _, Backbone, NumView, SortView) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'modules/solrita/views/num',
+  'modules/solrita/views/sort'
+  ], function ($, _, Backbone, NumView, SortView) {
 
-		var ResultsHeaderView = Backbone.View.extend({
+    var ResultsHeaderView = Backbone.View.extend({
 
-			template: 'results-header',
+      template: 'results-header',
 
-			initialize: function (options) {
-				this.collection.on('reset', this.render, this);
-			},
+      initialize: function (options) {
+        this.collection.on('reset', this.render, this);
+      },
 
-			beforeRender: function () {
-				this.insertViews({
-					"#num": new NumView({
-						collection: this.collection
-					}),
-					"#sort": new SortView({
-						collection: this.collection
-					})
-				});
-			},
+      beforeRender: function () {
+        this.insertViews({
+          "#num": new NumView({
+            collection: this.collection
+          }),
+          "#sort": new SortView({
+            collection: this.collection
+          })
+        });
+      },
 
-			data: function () {
-				return this.collection.infoSolr;
-			},
+      data: function () {
+        return this.collection.infoSolr;
+      },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 
 
 
-		});
+    });
 
-		return ResultsHeaderView;
-	});
+    return ResultsHeaderView;
+  });
 
 define('modules/solrita/views/pagination',[
   'jquery',
@@ -20286,7 +20292,7 @@ define('modules/solrita/views/pagination',[
         return this.collection.infoSolr;
       },
 
-      cleanup: function() {
+      cleanup: function () {
         this.collection.off(null, null, this);
       }
 
@@ -20296,180 +20302,180 @@ define('modules/solrita/views/pagination',[
   });
 
 define('modules/solrita',[
-	"app",
-	// Model
-	'modules/solrita/models/item',
-	// Collections
-	'modules/solrita/collections/items',
-	// Views
-	'modules/solrita/views/search',
-	'modules/solrita/views/results',
-	'modules/solrita/views/result',
-	'modules/solrita/views/facets',
-	'modules/solrita/views/filters',
-	'modules/solrita/views/results-header',
-	'modules/solrita/views/pagination',
-	'modules/solrita/views/option',
-	'modules/solrita/views/num',
-	'modules/solrita/views/sort'
+  "app",
+  // Model
+  'modules/solrita/models/item',
+  // Collections
+  'modules/solrita/collections/items',
+  // Views
+  'modules/solrita/views/search',
+  'modules/solrita/views/results',
+  'modules/solrita/views/result',
+  'modules/solrita/views/facets',
+  'modules/solrita/views/filters',
+  'modules/solrita/views/results-header',
+  'modules/solrita/views/pagination',
+  'modules/solrita/views/option',
+  'modules/solrita/views/num',
+  'modules/solrita/views/sort'
 
-	], function (app, SolrItem, SolrPaginatedCollection, SearchView, ResultsView, ResultView, FacetsView, FiltersView, ResultsHeaderView, PaginationView, OptionView, NumView, SortView) {
+  ], function (app, SolrItem, SolrPaginatedCollection, SearchView, ResultsView, ResultView, FacetsView, FiltersView, ResultsHeaderView, PaginationView, OptionView, NumView, SortView) {
 
-		// Create a new module
-		var Solrita = app.module();
+    // Create a new module
+    var Solrita = app.module();
 
-		Solrita.SolrItem = SolrItem;
-		Solrita.SolrPaginatedCollection = SolrPaginatedCollection;
+    Solrita.SolrItem = SolrItem;
+    Solrita.SolrPaginatedCollection = SolrPaginatedCollection;
 
-		Solrita.Views = {};
-		Solrita.Views.SearchView = SearchView;
-		Solrita.Views.ResultsView = ResultsView;
-		Solrita.Views.ResultView = ResultView;
-		Solrita.Views.FacetsView = FacetsView;
-		Solrita.Views.FiltersView = FiltersView;
-		Solrita.Views.ResultsHeaderView = ResultsHeaderView;
-		Solrita.Views.PaginationView = PaginationView;
-		Solrita.Views.OptionView = OptionView;
-		Solrita.Views.NumView = NumView;
-		Solrita.Views.SortView = SortView;
+    Solrita.Views = {};
+    Solrita.Views.SearchView = SearchView;
+    Solrita.Views.ResultsView = ResultsView;
+    Solrita.Views.ResultView = ResultView;
+    Solrita.Views.FacetsView = FacetsView;
+    Solrita.Views.FiltersView = FiltersView;
+    Solrita.Views.ResultsHeaderView = ResultsHeaderView;
+    Solrita.Views.PaginationView = PaginationView;
+    Solrita.Views.OptionView = OptionView;
+    Solrita.Views.NumView = NumView;
+    Solrita.Views.SortView = SortView;
 
-		return Solrita;
+    return Solrita;
 
-	});
+  });
 
 define('router',[
-	'jquery',
-	'lodash',
-	'backbone',
-	'app',
-	'modules/solrita'
-	], function ($, _, Backbone, app, Solrita) {
+  'jquery',
+  'lodash',
+  'backbone',
+  'app',
+  'modules/solrita'
+  ], function ($, _, Backbone, app, Solrita) {
 
-		var AppRouter = Backbone.Router.extend({
+    var AppRouter = Backbone.Router.extend({
 
-			collection: {},
+      collection: {},
 
-			initialize: function (options) {
-				this.collection = options.collection;
-			},
+      initialize: function (options) {
+        this.collection = options.collection;
+      },
 
-			routes: {
-				'search*params': 'searchAction',
-				'*actions': 'defaultAction'
-			},
+      routes: {
+        'search*params': 'searchAction',
+        '*actions': 'defaultAction'
+      },
 
-			defaultAction: function (actions) {
+      defaultAction: function (actions) {
         this.reset();
-				this.collection.query = app.defaultQuery;
-				this.collection.facetQueries = [];
+        this.collection.query = app.defaultQuery;
+        this.collection.facetQueries = [];
         this.collection.search();
-			},
+      },
 
-			searchAction: function (params) {
+      searchAction: function (params) {
         this.reset();
-				params = this._getParamsFromArguments(arguments);
-				this.collection.query = this._getQueryFromParams(params);
-				this.collection.perPage = this._getNumFromParams(params);
-				var start = this._getStartFromParams(params);
-				this.collection.currentPage = 0;
-				if (start !== 0) {
-					this.collection.currentPage = Math.floor(start / this.collection.perPage);
-				}
-				var facetQueries = this._getFacetQueriesFromParams(params);
-				this.collection.facetQueries = facetQueries;
+        params = this._getParamsFromArguments(arguments);
+        this.collection.query = this._getQueryFromParams(params);
+        this.collection.perPage = this._getNumFromParams(params);
+        var start = this._getStartFromParams(params);
+        this.collection.currentPage = 0;
+        if (start !== 0) {
+          this.collection.currentPage = Math.floor(start / this.collection.perPage);
+        }
+        var facetQueries = this._getFacetQueriesFromParams(params);
+        this.collection.facetQueries = facetQueries;
         this.collection.search();
-			},
+      },
 
-			initLayout: function () {
-				var self = this;
-				var main = app.useLayout({
-					template: "layouts/main",
-					views: {
-						"#search": new Solrita.Views.SearchView({
-							collection: self.collection
-						}),
-						"#results-header": new Solrita.Views.ResultsHeaderView({
-							collection: self.collection
-						}),
-						"#results": new Solrita.Views.ResultsView({
-							collection: self.collection
-						}),
-						"#facets": new Solrita.Views.FacetsView({
-							collection: self.collection
-						}),
-						"#filters": new Solrita.Views.FiltersView({
-							collection: self.collection
-						}),
-						"#pagination": new Solrita.Views.PaginationView({
-							collection: self.collection
-						})
-					}
-				}).render();
-			},
+      initLayout: function () {
+        var self = this;
+        var main = app.useLayout({
+          template: "layouts/main",
+          views: {
+            "#search": new Solrita.Views.SearchView({
+              collection: self.collection
+            }),
+            "#results-header": new Solrita.Views.ResultsHeaderView({
+              collection: self.collection
+            }),
+            "#results": new Solrita.Views.ResultsView({
+              collection: self.collection
+            }),
+            "#facets": new Solrita.Views.FacetsView({
+              collection: self.collection
+            }),
+            "#filters": new Solrita.Views.FiltersView({
+              collection: self.collection
+            }),
+            "#pagination": new Solrita.Views.PaginationView({
+              collection: self.collection
+            })
+          }
+        }).render();
+      },
 
-			_getQueryFromParams: function (params) {
-				var queryParam = params.q;
-				if (queryParam === undefined || queryParam === '') {
-					queryParam = app.defaultQuery;
-				}
-				return unescape(queryParam);
-			},
+      _getQueryFromParams: function (params) {
+        var queryParam = params.q;
+        if (queryParam === undefined || queryParam === '') {
+          queryParam = app.defaultQuery;
+        }
+        return unescape(queryParam);
+      },
 
-			_getStartFromParams: function (params) {
-				var startParam = params.start;
-				if (startParam === undefined) {
-					startParam = 0;
-				}
-				return startParam;
-			},
+      _getStartFromParams: function (params) {
+        var startParam = params.start;
+        if (startParam === undefined) {
+          startParam = 0;
+        }
+        return startParam;
+      },
 
-			_getNumFromParams: function (params) {
-				var numParam = params.num;
-				if (numParam === undefined) {
-					numParam = app.defaultPerPage;
-				}
-				return numParam;
-			},
+      _getNumFromParams: function (params) {
+        var numParam = params.num;
+        if (numParam === undefined) {
+          numParam = app.defaultPerPage;
+        }
+        return numParam;
+      },
 
-			_getFacetQueriesFromParams: function (params) {
-				var facetQueriesArray = [];
-				var facetQueriesParam = params.fq;
-				if (facetQueriesParam !== undefined) {
-					if (_.isArray(facetQueriesParam)) {
-						facetQueriesArray = facetQueriesParam;
-					} else {
-						facetQueriesArray.push(facetQueriesParam);
-					}
-				}
-				return facetQueriesArray;
-			},
+      _getFacetQueriesFromParams: function (params) {
+        var facetQueriesArray = [];
+        var facetQueriesParam = params.fq;
+        if (facetQueriesParam !== undefined) {
+          if (_.isArray(facetQueriesParam)) {
+            facetQueriesArray = facetQueriesParam;
+          } else {
+            facetQueriesArray.push(facetQueriesParam);
+          }
+        }
+        return facetQueriesArray;
+      },
 
-			_getParamsFromArguments: function (args) {
-				var paramString = args[0];
-				var result = {};
-				if (!paramString) {
-					return result;
-				}
-				$.each(paramString.split('&'), function (index, value) {
-					if (value) {
-						var param = value.split('=');
-						var key = param[0];
-						if (key.lastIndexOf('?', 0) === 0) {
-							key = key.substring(1, key.lenght);
-						}
-						value = param[1];
-						var currentValue = result[key];
-						if (currentValue === undefined) {
-							result[key] = value;
-						} else if (_.isArray(currentValue)) {
-							currentValue.push(value);
-						} else {
-							result[key] = [currentValue, value];
-						}
-					}
-				});
-				return result;
-			},
+      _getParamsFromArguments: function (args) {
+        var paramString = args[0];
+        var result = {};
+        if (!paramString) {
+          return result;
+        }
+        $.each(paramString.split('&'), function (index, value) {
+          if (value) {
+            var param = value.split('=');
+            var key = param[0];
+            if (key.lastIndexOf('?', 0) === 0) {
+              key = key.substring(1, key.lenght);
+            }
+            value = param[1];
+            var currentValue = result[key];
+            if (currentValue === undefined) {
+              result[key] = value;
+            } else if (_.isArray(currentValue)) {
+              currentValue.push(value);
+            } else {
+              result[key] = [currentValue, value];
+            }
+          }
+        });
+        return result;
+      },
 
       reset: function () {
         if (this.collection.length) {
@@ -20477,97 +20483,97 @@ define('router',[
         }
       }
 
-		});
+    });
 
-		return AppRouter;
+    return AppRouter;
 
-	});
+  });
 
 require([
-	"app",
-	"router",
-	"modules/solrita"
-	], function (app, Router, Solrita) {
+  "app",
+  "router",
+  "modules/solrita"
+  ], function (app, Router, Solrita) {
 
-		var solrPaginatedCollection = new Solrita.SolrPaginatedCollection();
+    var solrPaginatedCollection = new Solrita.SolrPaginatedCollection();
 
-		// Define your master router on the application namespace and trigger all
-		// navigation from this instance.
-		app.router = new Router({
-			collection: solrPaginatedCollection
-		});
+    // Define your master router on the application namespace and trigger all
+    // navigation from this instance.
+    app.router = new Router({
+      collection: solrPaginatedCollection
+    });
 
     app.router.initLayout();
 
-		// Trigger the initial route and enable HTML5 History API support, set the
-		// root folder to '/' by default.  Change in app.js.
-		Backbone.history.start({
-			pushState: app.pushState,
-			root: app.root
-		});
+    // Trigger the initial route and enable HTML5 History API support, set the
+    // root folder to '/' by default.  Change in app.js.
+    Backbone.history.start({
+      pushState: app.pushState,
+      root: app.root
+    });
 
-		// All navigation that is relative should be passed through the navigate
-		// method, to be processed by the router. If the link has a `data-bypass`
-		// attribute, bypass the delegation completely.
-		$(document).on("click", "a[href]:not([data-bypass])", function (evt) {
-			// Get the absolute anchor href.
-			var href = {
-				prop: $(this).prop("href"),
-				attr: $(this).attr("href")
-			};
-			// Get the absolute root.
-			var root = location.protocol + "//" + location.host + app.root;
+    // All navigation that is relative should be passed through the navigate
+    // method, to be processed by the router. If the link has a `data-bypass`
+    // attribute, bypass the delegation completely.
+    $(document).on("click", "a[href]:not([data-bypass])", function (evt) {
+      // Get the absolute anchor href.
+      var href = {
+        prop: $(this).prop("href"),
+        attr: $(this).attr("href")
+      };
+      // Get the absolute root.
+      var root = location.protocol + "//" + location.host + app.root;
 
-			// Ensure the root is part of the anchor href, meaning it's relative.
-			if (href.prop.slice(0, root.length) === root) {
-				// Stop the default event to ensure the link will not cause a page
-				// refresh.
-				evt.preventDefault();
+      // Ensure the root is part of the anchor href, meaning it's relative.
+      if (href.prop.slice(0, root.length) === root) {
+        // Stop the default event to ensure the link will not cause a page
+        // refresh.
+        evt.preventDefault();
 
-				// `Backbone.history.navigate` is sufficient for all Routers and will
-				// trigger the correct events. The Router's internal `navigate` method
-				// calls this anyways.  The fragment is sliced from the root.
-				Backbone.history.navigate(href.attr, true);
+        // `Backbone.history.navigate` is sufficient for all Routers and will
+        // trigger the correct events. The Router's internal `navigate` method
+        // calls this anyways.  The fragment is sliced from the root.
+        Backbone.history.navigate(href.attr, true);
         // jbarroso: Go to the top!
         $("body").scrollTop(0);
-			}
-		});
+      }
+    });
 
-	});
+  });
 
 define("main", function(){});
 
 // Set the require.js configuration for your application.
 require.config({
 
-	// Initialize the application with the main application file.
-	deps: ["main"],
+  // Initialize the application with the main application file.
+  deps: ["main"],
 
-	paths: {
-		// JavaScript folders.
-		libs: "../assets/js/libs",
-		plugins: "../assets/js/plugins",
-		vendor: "../assets/vendor",
+  paths: {
+    // JavaScript folders.
+    libs: "../assets/js/libs",
+    plugins: "../assets/js/plugins",
+    vendor: "../assets/vendor",
 
-		// Libraries.
-		jquery: "../assets/js/libs/jquery",
-		lodash: "../assets/js/libs/lodash",
-		backbone: "../assets/js/libs/backbone"
-	},
+    // Libraries.
+    jquery: "../assets/js/libs/jquery",
+    lodash: "../assets/js/libs/lodash",
+    backbone: "../assets/js/libs/backbone"
+  },
 
-	shim: {
-		backbone: {
-			deps: ["lodash", "jquery"],
-			exports: "Backbone"
-		},
-		"plugins/backbone.layoutmanager": ["backbone"],
-		"plugins/backbone.paginator": ["backbone"],
+  shim: {
+    backbone: {
+      deps: ["lodash", "jquery"],
+      exports: "Backbone"
+    },
+    "plugins/backbone.layoutmanager": ["backbone"],
+    "plugins/backbone.paginator": ["backbone"],
 
-		// Twitter Bootstrap depends on jQuery.
-		"vendor/bootstrap/js/bootstrap": ["jquery"],
-		// spinjs: http://fgnass.github.com/spin.js/
-		"plugins/spin":[]
-	}
+    // Twitter Bootstrap depends on jQuery.
+    "vendor/bootstrap/js/bootstrap": ["jquery"],
+    // spinjs: http://fgnass.github.com/spin.js/
+    "plugins/spin": []
+  }
 
 });
 

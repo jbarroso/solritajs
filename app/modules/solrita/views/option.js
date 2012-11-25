@@ -1,27 +1,27 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var OptionView = Backbone.View.extend({
+    var OptionView = Backbone.View.extend({
 
-			tagName: "option",
+      tagName: "option",
 
-			name: "",
+      name: "",
 
-			value: "",
+      value: "",
 
-			initialize: function (options) {
-				this.name = options.name;
-				this.value = options.value;
-			},
+      initialize: function (options) {
+        this.name = options.name;
+        this.value = options.value;
+      },
 
-			beforeRender: function () {
-				$(this.el).attr('value', this.value).html(this.name);
-			}
+      beforeRender: function () {
+        $(this.el).attr('value', this.value).html(this.name);
+      }
 
-		});
+    });
 
-		return OptionView;
-	});
+    return OptionView;
+  });

@@ -1,20 +1,20 @@
 define([
-	'jquery',
-	'lodash',
-	'backbone'
-	], function ($, _, Backbone) {
+  'jquery',
+  'lodash',
+  'backbone'
+  ], function ($, _, Backbone) {
 
-		var ResultView = Backbone.View.extend({
+    var ResultView = Backbone.View.extend({
 
-			template: 'result',
+      template: 'result',
 
-			tagName: 'div',
+      tagName: 'div',
 
-			data: function () {
-				return this.model.toJSON();
-			}
+      data: function () {
+        return this.model.toJSON();
+      }
 
-		});
+    });
 
-		return ResultView;
-	});
+    return ResultView;
+  });
