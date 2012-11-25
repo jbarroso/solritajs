@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Solritajs by jbarroso</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Solritajs</h1>
+        <p>A Backbone.js client for Apache Solr</p>
+
+        <p class="view"><a href="https://github.com/jbarroso/solritajs">View the Project on GitHub <small>jbarroso/solritajs</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/jbarroso/solritajs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jbarroso/solritajs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jbarroso/solritajs">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Sorlita.js</h1>
+
+<p>A Backbone.js client for Apache Solr. </p>
+
+<h2>Demo</h2>
+
+<p><a href="http://solritajs.herokuapp.com/">http://solritajs.herokuapp.com/</a></p>
+
+<p>This demo is also using a Solr server deployed to Heroku with the sample schema and data (computer components, screens, etc.) that are included in the <a href="http://lucene.apache.org/solr/4_0_0/tutorial.html">Solr tutorial</a>.</p>
+
+<p>You can also run it by yourself using Backbone Boilerplate framework tool: <a href="http://github.com/backbone-boilerplate/grunt-bbb">grunt-bbb</a> and with your own Solr server (app.js includes all the configuration options).</p>
+
+<h2>Features / Overview</h2>
+
+<p>Based on the <a href="http://wiki.apache.org/solr/VelocityResponseWriter">VelocityResponseWriter</a> (aka Solritas) but 100% made with javascript. It is my first open source project in Github and also with these fantastic new javascript libraries! </p>
+
+<p>My goal is cover all all the features that Solritas has but for the moment I have:</p>
+
+<ul>
+<li>The simple main search form.</li>
+<li>Pagination, sorting, choose number of results per page.</li>
+<li>Facet Fields column.</li>
+<li>Filter by a Facet field value.</li>
+<li>Highlighting search string in all the fields (even in multivalued fields).</li>
+</ul><p>All the actions go through the Backbone’s Router so the URL’s are good and bookmarkable.</p>
+
+<p>I am also playing with Twitter’s Bootstrap and responsive design.</p>
+
+<h2>Stack</h2>
+
+<ul>
+<li>
+<a href="https://github.com/backbone-boilerplate/">Backbone Bolierplate</a>.</li>
+<li>
+<a href="https://github.com/tbranyen/backbone.layoutmanager">Backbone Layout Manager</a>.</li>
+<li>
+<a href="https://github.com/addyosmani/backbone.paginator">Backbone Paginator</a>.</li>
+<li>
+<a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</li>
+<li>
+<a href="https://github.com/fgnass/spin.js">Spin.js</a>.</li>
+<li>Integration and unit test with:
+
+<ul>
+<li>
+<a href="http://pivotal.github.com/jasmine/">Jasmine</a> (<a href="https://github.com/velesin/jasmine-jquery">jasmine-jquery</a> and  <a href="https://gist.github.com/1359867">jasmine-loadTemplates</a> to load json).</li>
+<li>
+<a href="http://sinonjs.org/">Sinon</a> (spies, stubs and mocks).</li>
+</ul>
+</li>
+</ul><h2>Release HIstory</h2>
+
+<ul>
+<li>0.1 working!</li>
+</ul><h2>TODO</h2>
+
+<ul>
+<li>Suggest in search form.</li>
+<li>Collapsable result list with options to choose between large/short view format.</li>
+<li>Add facet filters links in result values.</li>
+<li>i18n messages</li>
+<li>Change templates to Handlebars.</li>
+<li>Make it configurable to fit any solr schema (facet fields, field names and types). </li>
+<li>Show/HIde facet filters and save them in HTML5 local storage.</li>
+<li>Improve code coverage.</li>
+<li>Make it work with node.js when javascript is disable (this also would allow to have results SEO friendly)</li>
+<li>Remove dist directory from github (first I have to deploy in heroku with bbb command).</li>
+<li>… any ideas?</li>
+</ul><h2>Licence</h2>
+
+<p>Copyright (c) 2012 Jose Angel Barroso.
+Licensed under the MIT license.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jbarroso">jbarroso</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-36540109-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
