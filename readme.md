@@ -43,6 +43,7 @@ I am also playing with Twitter’s Bootstrap and responsive design.
 
 ## TODO
 
+* [Feature request](https://github.com/jbarroso/solritajs/wiki/Feature-requests) by [claushjuhl](https://github.com/clausjuhl)
 * Suggest in search form.
 * Collapsable result list with options to choose between large/short view format.
 * Add facet filters links in result values.
