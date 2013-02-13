@@ -144,6 +144,7 @@ define([
         var info = this.info();
         info.qTime = this.qTime;
         info.total = this.total;
+				info.totalPages = this.totalPages;
         info.query = this.query;
         info.printQuery = (this.query !== app.defaultQuery) ? this.query : '';
         // I use _.escape because it changes " to &quote;
