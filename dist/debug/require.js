@@ -18486,8 +18486,8 @@ define('app',[
       // The root path to run the application.
       root: "/",
       pushState: true,
-      solrURL: "http://localhost:8983/solr/select",
-      //solrURL: "http://solritajs-server.herokuapp.com/solr/select",
+      //solrURL: "http://localhost:8983/solr/select",
+      solrURL: "http://solritajs-server.herokuapp.com/solr/select",
       defaultQuery: "*:*",
       defaultFacetFieldsArray: ["cat", "manu_exact"],
       defaultPerPage: 5,
