@@ -14,14 +14,19 @@
     "url": "https://github.com/jbarroso/solritajs/issues"
   },
   "dependencies": {
-    "lodash": "0.8.2",
-    "requirejs": "2.1.1",
-    "handlebars": "1.0.7",
-    "express": "2.x"
+    "compress": "^0.99.0",
+    "compression": "^1.3.0",
+    "express": "^4.10.7",
+    "lodash": "^2.4.1",
+    "serve-favicon": "^2.2.0"
   },
-  "keywords": ["backbone", "paginator", "solr", "jasmine", "bbb", "boilerplate"],
-  "engines": {
-    "node": ">= 0.6.0 < 0.7.0",
-    "npm": "1.1.x"
-  }
+  "keywords": [
+    "backbone",
+    "paginator",
+    "solr",
+    "jasmine",
+    "bbb",
+    "boilerplate"
+  ],
+  "engines": {}
 }
