@@ -2,13 +2,13 @@ var _ = require('lodash');
 var fs = require("fs");
 var path = require("path");
 var express = require("express");
-
+var compression = require('compression');
 // Options
 var options = {
   favicon: "./favicon.ico",
   index: "./index.html",
   port: process.env.PORT || 8000,
-  host: "0.0.0.0",
+  host: "localhost",
   folders: {
     "app": "dist/release",
     "assets/js/libs": "dist/release",
@@ -20,13 +20,15 @@ var options = {
   }
 }
 
-var site = express.createServer();
-site.use(express.compress());
+var site = express();
+site.use(compression({
+  threshold: 512
+}));
+
 console.log("Listening on http://" + options.host + ":" + options.port);
 
 // Allow users to override the root.
 var root = "/";
-
 // Map static folders.
 Object.keys(options.folders).sort().reverse().forEach(function (key) {
   site.get(root + key + "/*", function (req, res, next) {
@@ -34,7 +36,6 @@ Object.keys(options.folders).sort().reverse().forEach(function (key) {
     var filename = req.url.slice((root + key).length)
     // If there are query parameters, remove them.
     filename = filename.split("?")[0];
-
     res.sendfile(path.join(options.folders[key] + filename));
   });
 });
@@ -49,7 +50,7 @@ if (_.isObject(options.files)) {
 }
 
 // Serve favicon.ico.
-site.use(express.favicon(options.favicon));
+//site.use(express.favicon(options.favicon));
 
 // Ensure all routes go home, client side app..
 site.all("*", function (req, res) {
