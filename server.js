@@ -3,6 +3,8 @@ var fs = require("fs");
 var path = require("path");
 var express = require("express");
 var compression = require('compression');
+var favicon = require('serve-favicon');
+
 // Options
 var options = {
   favicon: "./favicon.ico",
@@ -36,7 +38,7 @@ Object.keys(options.folders).sort().reverse().forEach(function (key) {
     var filename = req.url.slice((root + key).length)
     // If there are query parameters, remove them.
     filename = filename.split("?")[0];
-    res.sendfile(path.join(options.folders[key] + filename));
+    res.sendFile(path.join(__dirname, options.folders[key] + filename));
   });
 });
 
@@ -44,13 +46,14 @@ Object.keys(options.folders).sort().reverse().forEach(function (key) {
 if (_.isObject(options.files)) {
   Object.keys(options.files).sort().reverse().forEach(function (key) {
     site.get(root + key, function (req, res) {
-      return res.sendfile(options.files[key]);
+      //console.log()
+      return res.sendFile(path.join(__dirname, options.files[key]));
     });
   });
 }
 
 // Serve favicon.ico.
-//site.use(express.favicon(options.favicon));
+site.use(favicon(options.favicon));
 
 // Ensure all routes go home, client side app..
 site.all("*", function (req, res) {
