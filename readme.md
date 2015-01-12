@@ -1,4 +1,4 @@
-Sorlita.js
+Solrita.js
 ==========
 
 A Backbone.js client for Apache Solr. 
