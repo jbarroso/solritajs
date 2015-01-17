@@ -37,9 +37,10 @@ I am also playing with Twitter’s Bootstrap and responsive design.
     - [Jasmine](http://pivotal.github.com/jasmine/) ([jasmine-jquery](https://github.com/velesin/jasmine-jquery) and  [jasmine-loadTemplates](https://gist.github.com/1359867) to load json).
     - [Sinon](http://sinonjs.org/) (spies, stubs and mocks).
 
-## Release HIstory
+## Release History
 
 * 0.1 working!
+* 0.2 (wip) upgrade Grunt, bower, etc. following: [Backbone Boilerplate](https://github.com/backbone-boilerplate/backbone-boilerplate)
 
 ## TODO
 
