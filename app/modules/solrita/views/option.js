@@ -1,7 +1,7 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone'
+  "jquery",
+  "lodash",
+  "backbone"
   ], function ($, _, Backbone) {
 
     var OptionView = Backbone.View.extend({
@@ -18,7 +18,7 @@ define([
       },
 
       beforeRender: function () {
-        $(this.el).attr('value', this.value).html(this.name);
+        $(this.el).attr("value", this.value).html(this.name);
       }
 
     });

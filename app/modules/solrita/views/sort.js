@@ -1,9 +1,9 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone',
-  'app',
-  'modules/solrita/views/option'
+  "jquery",
+  "lodash",
+  "backbone",
+  "app",
+  "modules/solrita/views/option"
   ], function ($, _, Backbone, app, OptionView) {
 
     var SortView = Backbone.View.extend({
@@ -30,13 +30,13 @@ define([
       },
 
       afterRender: function () {
-        this.$el.val(this.collection.sortField);
+        this.$el.val(this.collection.state.sortField);
       },
 
       sortFieldSelected: function (e) {
         e.preventDefault();
         var sortFieldSelected = $(e.target).val();
-        this.collection.sortField = sortFieldSelected;
+        this.collection.state.sortField = sortFieldSelected;
 
         Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
       }

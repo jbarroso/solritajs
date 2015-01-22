@@ -1,17 +1,19 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone',
-  'modules/solrita/views/num',
-  'modules/solrita/views/sort'
-  ], function ($, _, Backbone, NumView, SortView) {
+  "jquery",
+  "lodash",
+  "backbone",
+  "modules/solrita/views/num",
+  "modules/solrita/views/sort",
+  "ldsh!../templates/results-header"
+
+  ], function ($, _, Backbone, NumView, SortView, template) {
 
     var ResultsHeaderView = Backbone.View.extend({
 
-      template: 'results-header',
+      template: template,
 
       initialize: function (options) {
-        this.collection.on('reset', this.render, this);
+        this.listenTo(this.collection, "sync", this.render);
       },
 
       beforeRender: function () {
@@ -25,15 +27,9 @@ define([
         });
       },
 
-      data: function () {
+      serialize: function () {
         return this.collection.infoSolr;
-      },
-
-      cleanup: function () {
-        this.collection.off(null, null, this);
       }
-
-
 
     });
 

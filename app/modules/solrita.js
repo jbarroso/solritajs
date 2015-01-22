@@ -1,25 +1,25 @@
 define([
   "app",
   // Model
-  'modules/solrita/models/item',
+  "modules/solrita/models/item",
   // Collections
-  'modules/solrita/collections/items',
+  "modules/solrita/collections/items",
   // Views
-  'modules/solrita/views/search',
-  'modules/solrita/views/results',
-  'modules/solrita/views/result',
-  'modules/solrita/views/facets',
-  'modules/solrita/views/filters',
-  'modules/solrita/views/results-header',
-  'modules/solrita/views/pagination',
-  'modules/solrita/views/option',
-  'modules/solrita/views/num',
-  'modules/solrita/views/sort'
+  "modules/solrita/views/search",
+  "modules/solrita/views/results",
+  "modules/solrita/views/result",
+  "modules/solrita/views/facets",
+  "modules/solrita/views/filters",
+  "modules/solrita/views/results-header",
+  "modules/solrita/views/pagination",
+  "modules/solrita/views/option",
+  "modules/solrita/views/num",
+  "modules/solrita/views/sort"
 
   ], function (app, SolrItem, SolrPaginatedCollection, SearchView, ResultsView, ResultView, FacetsView, FiltersView, ResultsHeaderView, PaginationView, OptionView, NumView, SortView) {
 
     // Create a new module
-    var Solrita = app.module();
+    var Solrita = {};
 
     Solrita.SolrItem = SolrItem;
     Solrita.SolrPaginatedCollection = SolrPaginatedCollection;

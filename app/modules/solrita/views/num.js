@@ -1,9 +1,9 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone',
-  'app',
-  'modules/solrita/views/option'
+  "jquery",
+  "lodash",
+  "backbone",
+  "app",
+  "modules/solrita/views/option"
   ], function ($, _, Backbone, app, OptionView) {
 
     var NumView = Backbone.View.extend({
@@ -30,13 +30,13 @@ define([
       },
 
       afterRender: function () {
-        this.$el.val(this.collection.perPage);
+        this.$el.val(this.collection.state.perPage);
       },
 
       numSelected: function (e) {
         e.preventDefault();
         var per = $(e.target).val();
-        this.collection.perPage = per;
+        this.collection.state.perPage = per;
 
         Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
       }

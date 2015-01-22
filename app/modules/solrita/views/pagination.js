@@ -1,23 +1,20 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone'
-  ], function ($, _, Backbone) {
+  "jquery",
+  "lodash",
+  "backbone",
+  "ldsh!../templates/pagination"
+  ], function ($, _, Backbone, template) {
 
     var PaginatedView = Backbone.View.extend({
 
-      template: 'pagination',
+      template: template,
 
       initialize: function () {
-        this.collection.on('reset', this.render, this);
+        this.listenTo(this.collection, "reset sync request error", this.render);
       },
 
-      data: function () {
+      serialize: function () {
         return this.collection.infoSolr;
-      },
-
-      cleanup: function () {
-        this.collection.off(null, null, this);
       }
 
     });

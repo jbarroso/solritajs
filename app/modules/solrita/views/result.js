@@ -1,16 +1,17 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone'
-  ], function ($, _, Backbone) {
+  "jquery",
+  "lodash",
+  "backbone",
+  "ldsh!../templates/result"
+  ], function ($, _, Backbone, template) {
 
     var ResultView = Backbone.View.extend({
 
-      template: 'result',
+      template: template,
 
-      tagName: 'div',
+      tagName: "div",
 
-      data: function () {
+      serialize: function () {
         return this.model.toJSON();
       }
 

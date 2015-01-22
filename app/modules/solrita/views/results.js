@@ -1,9 +1,9 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone',
-  'modules/solrita/views/result',
-  'plugins/spin'
+  "jquery",
+  "lodash",
+  "backbone",
+  "modules/solrita/views/result",
+  "spin"
   ], function ($, _, Backbone, ResultView, Spinner) {
 
     var ResultsView = Backbone.View.extend({
@@ -11,15 +11,15 @@ define([
       spinner: {},
 
       initialize: function () {
-        this.collection.on('reset', this.render, this);
-        this.collection.on('fetch', this.start, this);
-        this.collection.on('parse', this.stop, this);
+        this.listenTo(this.collection, "reset sync", this.render);
+        this.listenTo(this.collection, "request", this.start);
+        this.listenTo(this.collection, "sync error", this.stop);
         this.spinner = new Spinner({
           color: "#777"
         });
       },
 
-      beforeRender: function () {
+     beforeRender: function () {
         var self = this;
         this.collection.each(function (item) {
           self.insertView(new ResultView({
@@ -34,12 +34,8 @@ define([
 
       stop: function () {
         this.spinner.stop();
-      },
-
-      cleanup: function () {
-        this.collection.off(null, null, this);
       }
-
+        
     });
 
     return ResultsView;

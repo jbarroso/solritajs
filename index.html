@@ -7,16 +7,20 @@
 
 		<title>Solrita.js</title>
 
-		<!-- Application styles. -->
-		<link rel="stylesheet" href="assets/css/index.css">
+    <!-- Application styles. -->
+    <!-- build:[href] /styles.min.css -->
+    <link rel="stylesheet" href="/app/styles/index.css">
+    <!-- /build -->
 	</head>
 
 	<body>
 		<!-- Main container. -->
 		<div role="main" id="main">Loading, please wait...</div>
 
-		<!-- Application source. -->
-		<script data-main="app/config" src="assets/js/libs/require.js"></script>
+    <!-- Application source. -->
+    <!-- build:[src] /source.min.js -->
+    <script src="/bower_components/requirejs/require.js" data-main="/app/config"></script>
+    <!-- /build -->
 
 		<!-- Google Analytics. -->
 		<script type="text/javascript">

@@ -1,33 +1,20 @@
-// Set the require.js configuration for your application.
 require.config({
-
-  // Initialize the application with the main application file.
-  deps: ["main"],
-
   paths: {
-    // JavaScript folders.
-    libs: "../assets/js/libs",
-    plugins: "../assets/js/plugins",
-    vendor: "../assets/vendor",
-
-    // Libraries.
-    jquery: "../assets/js/libs/jquery",
-    lodash: "../assets/js/libs/lodash",
-    backbone: "../assets/js/libs/backbone"
+    "underscore": "../bower_components/lodash/dist/lodash.underscore",
+    "lodash": "../bower_components/lodash/dist/lodash",
+    "ldsh": "../bower_components/lodash-template-loader/loader",
+    "jquery": "../bower_components/jquery/dist/jquery",
+    "backbone": "../bower_components/backbone/backbone",
+    "layoutmanager": "../bower_components/layoutmanager/backbone.layoutmanager",
+    "backbone.paginator": "../bower_components/backbone.paginator/lib/backbone.paginator",
+    "spin": "../bower_components/spin.js/spin",
+    "sinon": "../bower_components/sinonjs/sinon",
+    "specs": "../test/jasmine/spec"
   },
-
   shim: {
-    backbone: {
-      deps: ["lodash", "jquery"],
-      exports: "Backbone"
-    },
-    "plugins/backbone.layoutmanager": ["backbone"],
-    "plugins/backbone.paginator": ["backbone"],
-
-    // Twitter Bootstrap depends on jQuery.
-    "vendor/bootstrap/js/bootstrap": ["jquery"],
-    // spinjs: http://fgnass.github.com/spin.js/
-    "plugins/spin": []
-  }
-
+    "sinon": {
+      exports: "sinon"
+    }
+  },
+  deps: ["main"]
 });

@@ -1,19 +1,20 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone'
-  ], function ($, _, Backbone) {
+  "jquery",
+  "lodash",
+  "backbone",
+  "ldsh!../templates/filters"
+  ], function ($, _, Backbone, template) {
 
     var FiltersView = Backbone.View.extend({
 
-      template: 'filters',
+      template: template,
 
       initialize: function () {
-        this.collection.on('reset', this.render, this);
+        this.listenTo(this.collection, "reset sync request error", this.render);
       },
 
       events: {
-        'click .rfq': 'removeFilter'
+        "click .rfq": "removeFilter"
       },
 
       removeFilter: function (e) {
@@ -24,12 +25,8 @@ define([
         Backbone.history.navigate("search?" + this.collection.getCurrentParams(), true);
       },
 
-      data: function () {
+      serialize: function () {
         return this.collection;
-      },
-
-      cleanup: function () {
-        this.collection.off(null, null, this);
       }
 
     });

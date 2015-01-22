@@ -1,18 +1,19 @@
 define([
-  'jquery',
-  'lodash',
-  'backbone'
-  ], function ($, _, Backbone) {
+  "jquery",
+  "lodash",
+  "backbone",
+  "ldsh!../templates/facets"
+  ], function ($, _, Backbone, template) {
 
   var FacetsView = Backbone.View.extend({
 
-    template: 'facets',
+    template: template,
 
     initialize: function () {
-      this.collection.on('reset', this.render, this);
+      this.listenTo(this.collection, "reset sync request error", this.render);
     },
 
-    data: function () {
+    serialize: function () {
       return this.collection;
     }
 
