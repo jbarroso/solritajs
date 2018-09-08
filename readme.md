@@ -34,7 +34,7 @@ I am also playing with Twitter’s Bootstrap and responsive design.
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap/).
 * [Spin.js](https://github.com/fgnass/spin.js).
 * Integration and unit test with:
-    - [Jasmine](http://pivotal.github.com/jasmine/) ([jasmine-jquery](https://github.com/velesin/jasmine-jquery) and  [jasmine-loadTemplates](https://gist.github.com/1359867) to load json).
+    - [Jasmine](https://jasmine.github.io/) ([jasmine-jquery](https://github.com/velesin/jasmine-jquery) and  [jasmine-loadTemplates](https://gist.github.com/1359867) to load json).
     - [Sinon](http://sinonjs.org/) (spies, stubs and mocks).
 
 ## Release HIstory
